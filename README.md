@@ -15,3 +15,5 @@ Overwrite the contents of the file with some or all the contents of this reposit
 ## Functions
 
 `hb [relative file path]` - Uploads the file to a hastebin server and returns the URL.
+
+`whatsmyip` - Makes a curl request to https://api.ipify.org and returns your public IP address as well as similar data.
