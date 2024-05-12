@@ -1,5 +1,5 @@
 # Automatically uploads a file to bin.christitus.com
-# Usage: hb "C:\Path\To\File.txt"
+# Usage: hb [file path]
 function hb {
  if ($args.Length -eq 0) {
  Write-Error "No file path specified."
@@ -24,4 +24,8 @@ function hb {
  } catch {
  Write-Error "Failed to upload the document. Error: $_"
  }
+}
+
+function whatsmyip {
+ curl https://api.ipify.org
 }
