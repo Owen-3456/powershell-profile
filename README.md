@@ -16,4 +16,6 @@ Overwrite the contents of the file with some or all the contents of this reposit
 
 `hb [relative file path]` - Uploads the file to a hastebin server and returns the URL.
 
-`whatsmyip` - Makes a curl request to https://api.ipify.org and returns your public IP address.
+`ip` - Makes a curl request to https://api.ipify.org and returns your public IP address.
+
+`weather` - Makes a curl request to wttr.in and returns the weather for your location.

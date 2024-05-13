@@ -26,6 +26,10 @@ function hb {
  }
 }
 
-function whatsmyip {
- curl https://api.ipify.org
+function ip {
+ curl api.ipify.org
+}
+
+function weather {
+ curl wttr.in
 }
