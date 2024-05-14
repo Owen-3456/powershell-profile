@@ -1,5 +1,3 @@
-# Automatically uploads a file to bin.christitus.com
-# Usage: hb [file path]
 function hb {
  if ($args.Length -eq 0) {
  Write-Error "No file path specified."
@@ -27,9 +25,30 @@ function hb {
 }
 
 function ip {
- curl api.ipify.org
+ curl "api.ipify.org"
 }
 
 function weather {
- curl wttr.in
+ curl "wttr.in"
+}
+
+function admin
+{
+    if ($args.Count -gt 0)
+    {   
+       $argList = "& '" + $args + "'"
+       Start-Process "$psHome\pwsh.exe" -Verb runAs -ArgumentList $argList
+    }
+    else
+    {
+       Start-Process "$psHome\pwsh.exe" -Verb runAs
+    }
+}
+
+Set-Alias sudo admin
+
+function Edit-Profile
+{
+    code $PROFILE
+    # Change code to your editor of choice (e.g. notepad $PROFILE) 
 }

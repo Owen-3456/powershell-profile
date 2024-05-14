@@ -19,3 +19,7 @@ Overwrite the contents of the file with some or all the contents of this reposit
 `ip` - Makes a curl request to https://api.ipify.org and returns your public IP address.
 
 `weather` - Makes a curl request to wttr.in and returns the weather for your location.
+
+`admin` or `sudo` - Opens a new PowerShell window as an administrator.
+
+`Edit-Profile` - Opens the profile in Visual Studio Code.
