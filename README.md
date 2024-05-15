@@ -26,15 +26,15 @@ Overwrite the contents of the file with some or all the contents of this reposit
 
 `ll` - Lists contents of directory excluding other directories.
 
-`reload-profile` - Reloads the profile.
-
-`ff [file name]` - Searches for a file in the current directory and all subdirectories.
+`find-file [file name]` or `ff [file name]` - Searches for a file in the current directory and all subdirectories.
 
 `unzip` - Unzips a file into the current directory.
 
 `pkill [process]` - Kills any process with the name.
 
 `uptime` - Returns the uptime of the computer.
+
+`reload-profile` - Reloads the profile.
 
 ## Location Shortcuts
 

@@ -84,12 +84,14 @@ function Edit-Profile
 
 function ll { Get-ChildItem -Path $pwd -File }
 
-function ff($name) {
+function find-file($name) {
         Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
                 $place_path = $_.directory
                 Write-Output "${place_path}\${_}"
         }
 }
+
+Set-Alias ff find-file
 
 function unzip ($file) {
         Write-Output("Extracting", $file, "to", $pwd)
@@ -109,7 +111,12 @@ function uptime {
     }
 }
 
-# Locations shortcuts
+function reload-profile {
+        & $profile
+        Write-Host "Profile reloaded."
+}
+
+# Location shortcuts
 
 function doc { Set-Location -Path $HOME\Documents }
 
