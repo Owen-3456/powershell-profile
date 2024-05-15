@@ -25,11 +25,7 @@ function hb {
 }
 
 function ip {
- curl "api.ipify.org"
-}
-
-function weather {
- curl "wttr.in"
+ (Invoke-WebRequest http://ifconfig.me/ip ).Content
 }
 
 function admin
