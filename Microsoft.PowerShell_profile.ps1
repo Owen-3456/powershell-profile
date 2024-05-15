@@ -111,7 +111,7 @@ function uptime {
     }
 }
 
-function reload-profile {
+function reload {
         & $profile
         Write-Host "Profile reloaded."
 }

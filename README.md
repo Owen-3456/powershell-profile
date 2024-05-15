@@ -34,7 +34,7 @@ Overwrite the contents of the file with some or all the contents of this reposit
 
 `uptime` - Returns the uptime of the computer.
 
-`reload-profile` - Reloads the profile.
+`reload` - Reloads the profile.
 
 ## Location Shortcuts
 
