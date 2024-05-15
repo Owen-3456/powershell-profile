@@ -52,3 +52,5 @@ function Edit-Profile
     code $PROFILE
     # Change code to your editor of choice (e.g. notepad $PROFILE) 
 }
+
+function ll { Get-ChildItem -Path $pwd -File }

@@ -23,3 +23,5 @@ Overwrite the contents of the file with some or all the contents of this reposit
 `admin` or `sudo` - Opens a new PowerShell window as an administrator.
 
 `Edit-Profile` - Opens the profile in Visual Studio Code.
+
+`ll` - Lists contents of directory excluding other directories.
