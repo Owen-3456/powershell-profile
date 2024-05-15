@@ -58,7 +58,7 @@ function hb {
 }
 
 function ip {
- (Invoke-WebRequest http://ifconfig.me/ip ).Content
+ (Invoke-WebRequest 'http://ifconfig.me/ip').Content
 }
 
 function admin
@@ -116,7 +116,11 @@ function reload {
         Write-Host "Profile reloaded."
 }
 
-# Location shortcuts
+function winutil {
+    Start-Process powershell.exe -verb runas -ArgumentList 'irm https://christitus.com/win | iex'
+}
+
+# MARK: Location Shortcuts
 
 function doc { Set-Location -Path $HOME\Documents }
 

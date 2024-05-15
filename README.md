@@ -36,6 +36,8 @@ Overwrite the contents of the file with some or all the contents of this reposit
 
 `reload` - Reloads the profile.
 
+`winutil` - Opens [Windows Utility](https://github.com/ChrisTitusTech/winutil).
+
 ## Location Shortcuts
 
 `doc` - Opens the Documents folder.
