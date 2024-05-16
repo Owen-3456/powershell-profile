@@ -4,13 +4,11 @@ This is my PowerShell profile. It's a work in progress. I will slowly add to as 
 
 ## Installation
 
-Your custom profile is stored in a file called `$PROFILE`. To find the file's location just run
+To install the profile, run the following command in PowerShell:
 
 ```powershell
-$PROFILE
+irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/setup.ps1 | iex
 ```
-
-Overwrite the contents of the file with some or all the contents of this repository.
 
 ## Functions
 

@@ -31,6 +31,33 @@ function Update-PowerShell {
 
 Update-PowerShell
 
+function Update-Profile {
+    if (-not $global:canConnectToGitHub) {
+        Write-Host "Skipping profile update check due to GitHub.com not responding within 1 second." -ForegroundColor Yellow
+        return
+    }
+
+    try {
+        Write-Host "Checking for profile updates..." -ForegroundColor Cyan
+        $profileUrl = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/Microsoft.PowerShell_profile.ps1"
+        $profileContent = Invoke-RestMethod -Uri $profileUrl
+        $profilePath = $PROFILE
+        $currentProfileContent = Get-Content -Path $profilePath -Raw
+        if ($profileContent -ne $currentProfileContent) {
+            Write-Host "Updating profile..." -ForegroundColor Yellow
+            Set-Content -Path $profilePath -Value $profileContent
+            Write-Host "Profile has been updated. Please restart your shell to reflect changes" -ForegroundColor Magenta
+        } else {
+            Write-Host "Your profile is up to date." -ForegroundColor Green
+        }
+    } catch {
+        Write-Error "Failed to update profile. Error: $_"
+    }
+
+}
+
+Update-Profile
+
 function hb {
  if ($args.Length -eq 0) {
  Write-Error "No file path specified."
