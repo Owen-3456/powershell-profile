@@ -4,10 +4,16 @@ This is my PowerShell profile. It's a work in progress. I will slowly add to as 
 
 ## Installation
 
+The profile is design to be used with PowerShell 7. To install PowerShell 7, run the following command in PowerShell:
+
+```
+winget install Microsoft.PowerShell
+```
+
 To install the profile, run the following command in PowerShell:
 
 ```
-irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/setup.ps1 | iex
+irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/install.ps1 | iex
 ```
 
 ## Functions
@@ -40,7 +46,7 @@ irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/setup.ps
 
 `winutil` - Opens [Windows Utility](https://github.com/ChrisTitusTech/winutil).
 
-`mas` - Runs [Microsoft Activation Script](https://github.com/massgravel/Microsoft-Activation-Scripts)
+`mas` - Runs [Microsoft Activation Script](https://github.com/massgravel/Microsoft-Activation-Scripts).
 
 `Clear-History` - The default `Clear-History` command doesn't work. It get overwritten with a command that does work.
 
