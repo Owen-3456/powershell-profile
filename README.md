@@ -20,7 +20,7 @@ irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/install.
 
 `Update-PowerShell` - Updates PowerShell to the latest version. Is ran on startup.
 
-`Update-Profile` - Updates the profile to the latest version. Is ran on startup.
+`Update-Profile` - Updates the profile to the latest version.
 
 `Reload-Profile` - Reloads the profile.
 
