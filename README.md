@@ -6,7 +6,7 @@ This is my PowerShell profile. It's a work in progress. I will slowly add to as 
 
 To install the profile, run the following command in PowerShell:
 
-```powershell
+```
 irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/setup.ps1 | iex
 ```
 
