@@ -36,6 +36,8 @@ irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/setup.ps
 
 `winutil` - Opens [Windows Utility](https://github.com/ChrisTitusTech/winutil).
 
+`mas` - Runs [Microsoft Activation Script](https://github.com/massgravel/Microsoft-Activation-Scripts)
+
 ## Location Shortcuts
 
 `doc` - Opens the Documents folder.
