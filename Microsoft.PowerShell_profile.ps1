@@ -28,7 +28,7 @@ function Update-Profile {
         Invoke-WebRequest -Uri $profileUrl -OutFile $profilePath
         Write-Host "Loaded latest version" -ForegroundColor Green
         Write-Host "Reloading profile" -ForegroundColor Cyan
-        Reload-Profile
+        # Reload-Profile
         Write-Host "Profile reloaded" -ForegroundColor Green
     }
 
