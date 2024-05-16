@@ -17,6 +17,10 @@ function Update-PowerShell {
 
 Update-PowerShell
 
+function ReloadProfile {
+    . $PROFILE
+}
+
 function Update-Profile {
     if (-not $global:canConnectToGitHub) {
         Write-Host "Skipping profile update check due to GitHub.com not responding within 1 second." -ForegroundColor Yellow
@@ -28,17 +32,12 @@ function Update-Profile {
         Invoke-WebRequest -Uri $profileUrl -OutFile $profilePath
         Write-Host "Loaded latest version" -ForegroundColor Green
         Write-Host "Reloading profile" -ForegroundColor Cyan
-        # Reload-Profile
+        ReloadProfile
         Write-Host "Profile reloaded" -ForegroundColor Green
     }
 
 }
 
-function Reload-Profile {
-    . $PROFILE
-}
-
-Update-Profile
 
 function hb {
  if ($args.Length -eq 0) {
