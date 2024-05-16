@@ -14,6 +14,10 @@ irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/setup.ps
 
 `Update-PowerShell` - Updates PowerShell to the latest version. Is ran on startup.
 
+`Update-Profile` - Updates the profile to the latest version. Is ran on startup.
+
+`Reload-Profile` - Reloads the profile.
+
 `hb [relative file path]` - Uploads the file to a hastebin server and returns the URL.
 
 `ip` - Makes a curl request to https://api.ipify.org and returns your public IP address.
