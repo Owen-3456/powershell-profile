@@ -151,6 +151,10 @@ function mas {
     Start-Process powershell.exe -verb runas -ArgumentList 'irm https://massgrave.dev/get | iex'
 }
 
+function Clear-History {
+    Remove-Item (Get-PSReadlineOption).HistorySavePath
+}
+
 # MARK: Location Shortcuts
 
 function doc { Set-Location -Path $HOME\Documents }

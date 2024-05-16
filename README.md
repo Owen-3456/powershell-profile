@@ -38,6 +38,8 @@ irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/setup.ps
 
 `mas` - Runs [Microsoft Activation Script](https://github.com/massgravel/Microsoft-Activation-Scripts)
 
+`Clear-History` - The default `Clear-History` command doesn't work. It get overwritten with a command that does work.
+
 ## Location Shortcuts
 
 `doc` - Opens the Documents folder.
