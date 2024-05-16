@@ -147,6 +147,10 @@ function winutil {
     Start-Process powershell.exe -verb runas -ArgumentList 'irm https://christitus.com/win | iex'
 }
 
+function mas {
+    Start-Process powershell.exe -verb runas -ArgumentList 'irm https://massgrave.dev/get | iex'
+}
+
 # MARK: Location Shortcuts
 
 function doc { Set-Location -Path $HOME\Documents }
