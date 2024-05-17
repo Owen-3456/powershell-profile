@@ -10,6 +10,12 @@ The profile is design to be used with PowerShell 7. To install PowerShell 7, run
 winget install Microsoft.PowerShell
 ```
 
+The Profile is designed to be used with [Oh My Posh](https://ohmyposh.dev/). To install Oh My Posh, run the following command in PowerShell:
+
+```
+winget install JanDeDobbeleer.OhMyPosh -s winget
+```
+
 To install the profile, run the following command in PowerShell:
 
 ```

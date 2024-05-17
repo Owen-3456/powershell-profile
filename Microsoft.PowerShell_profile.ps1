@@ -159,3 +159,7 @@ function dl { Set-Location -Path $HOME\Downloads }
 function gh { Set-Location -Path $HOME\Documents\GitHub }
 
 function c { Set-Location -Path C:\ }
+
+# MARK: Oh My Posh
+
+oh-my-posh init pwsh | Invoke-Expression
