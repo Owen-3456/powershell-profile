@@ -4,23 +4,15 @@ This is my PowerShell profile. It's a work in progress. I will slowly add to as 
 
 ## Installation
 
-The profile is design to be used with PowerShell 7. To install PowerShell 7, run the following command in PowerShell:
-
-```
-winget install Microsoft.PowerShell
-```
-
-The Profile is designed to be used with [Oh My Posh](https://ohmyposh.dev/). To install Oh My Posh, run the following command in PowerShell:
-
-```
-winget install JanDeDobbeleer.OhMyPosh -s winget
-```
-
 To install the profile, run the following command in PowerShell:
 
 ```
 irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/install.ps1 | iex
 ```
+
+This will install the PowerShell 7 and [Oh My Posh](https://ohmyposh.dev/) as well.
+
+You need to install a [Nerd font](https://www.nerdfonts.com/) to use the theme. Set the font in Windows Terminal.
 
 ## Functions
 
