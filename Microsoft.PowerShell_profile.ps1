@@ -180,7 +180,7 @@ function c { Set-Location -Path C:\ }
 # MARK: Other
 
 # Set the prompt to use oh-my-posh
-oh-my-posh init pwsh | Invoke-Expression
+oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json" | Invoke-Expression
 
 # Set up zoxide
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
