@@ -160,6 +160,10 @@ function gh { Set-Location -Path $HOME\Documents\GitHub }
 
 function c { Set-Location -Path C:\ }
 
-# MARK: Oh My Posh
+# MARK: Other
 
+# Set the prompt to use oh-my-posh
 oh-my-posh init pwsh | Invoke-Expression
+
+# Set up zoxide
+Invoke-Expression (& { (zoxide init powershell | Out-String) })

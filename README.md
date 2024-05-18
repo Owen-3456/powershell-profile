@@ -10,7 +10,7 @@ To install the profile, run the following command in PowerShell:
 irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/install.ps1 | iex
 ```
 
-This will install the PowerShell 7 and [Oh My Posh](https://ohmyposh.dev/) as well.
+This will install the PowerShell 7, [Oh My Posh](https://ohmyposh.dev/) and [Zioxide](https://github.com/ajeetdsouza/zoxide) as well.
 
 You need to install a [Nerd font](https://www.nerdfonts.com/) to use the theme. Set the font in Windows Terminal.
 
