@@ -103,6 +103,9 @@ function admin
     }
 }
 
+# Set up aliase for sudo and admin
+Set-Alias sudo admin
+
 # Opens the PowerShell profile in VSCode
 function Edit-Profile
 {
@@ -120,6 +123,9 @@ function find-file($name) {
                 Write-Output "${place_path}\${_}"
         }
 }
+
+# Set up aliases for find-file
+Set-Alias ff find-file
 
 # Unzips a file to the current directory
 function unzip ($file) {
@@ -156,18 +162,6 @@ function mas {
 function Clear-History {
     Remove-Item (Get-PSReadlineOption).HistorySavePath
 }
-
-# MARK: Aliases
-
-# Set up aliases for find-file
-Set-Alias ff find-file
-
-# Set up aliase for sudo and admin
-Set-Alias sudo admin
-
-# Zoxide aliases
-Set-Alias cd z
-
 
 # MARK: Location Shortcuts
 
