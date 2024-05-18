@@ -1,5 +1,7 @@
+# Checks connection to GitHub
 $canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds 1
 
+# Checks for PowerShell updates and installs them if needed
 function Update-PowerShell {
     if (-not $global:canConnectToGitHub) {
         Write-Host "Skipping PowerShell update check due to GitHub.com not responding within 1 second." -ForegroundColor Yellow
@@ -29,12 +31,15 @@ function Update-PowerShell {
     }
 }
 
+# Runs the Update-PowerShell function on startup
 Update-PowerShell
 
+# Reloads the profile
 function ReloadProfile {
     . $PROFILE
 }
 
+# Grabs the new file from GitHub and reloads the profile
 function Update-Profile {
     if (-not $global:canConnectToGitHub) {
         Write-Host "Skipping profile update check due to GitHub.com not responding within 1 second." -ForegroundColor Yellow
@@ -52,7 +57,7 @@ function Update-Profile {
 
 }
 
-
+# Uploads a file to a pastebin service and returns the URL
 function hb {
  if ($args.Length -eq 0) {
  Write-Error "No file path specified."
@@ -79,10 +84,12 @@ function hb {
  }
 }
 
+# Outputs the current external IP address
 function ip {
  (Invoke-WebRequest 'http://ifconfig.me/ip').Content
 }
 
+# Opens a new PowerShell window as an administrator
 function admin
 {
     if ($args.Count -gt 0)
@@ -96,16 +103,20 @@ function admin
     }
 }
 
+# Set up aliase for sudo and admin
 Set-Alias sudo admin
 
+# Opens the PowerShell profile in VSCode
 function Edit-Profile
 {
     code $PROFILE
     # Change code to your editor of choice (e.g. notepad $PROFILE) 
 }
 
+# Lists all files in the current directory (not subdirectories)
 function ll { Get-ChildItem -Path $pwd -File }
 
+# Finds file inside the current directory and subdirectories much faster than the built-in search in explorer.exe
 function find-file($name) {
         Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
                 $place_path = $_.directory
@@ -113,18 +124,22 @@ function find-file($name) {
         }
 }
 
+# Set up aliases for find-file
 Set-Alias ff find-file
 
+# Unzips a file to the current directory
 function unzip ($file) {
         Write-Output("Extracting", $file, "to", $pwd)
 	$fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object{$_.FullName}
         Expand-Archive -Path $fullFile -DestinationPath $pwd
 }
 
+# Kills any process containing the name given
 function pkill($name) {
         Get-Process $name -ErrorAction SilentlyContinue | Stop-Process
 }
 
+# Outputs current system uptime
 function uptime {
     if ($PSVersionTable.PSVersion.Major -eq 5) {
         Get-WmiObject win32_operatingsystem | Select-Object @{Name='LastBootUpTime'; Expression={$_.ConverttoDateTime($_.lastbootuptime)}} | Format-Table -HideTableHeaders
@@ -133,31 +148,33 @@ function uptime {
     }
 }
 
-function reload {
-        & $profile
-        Write-Host "Profile reloaded."
-}
-
+# Runs Christitus' Windows Utility Script
 function winutil {
     Start-Process powershell.exe -verb runas -ArgumentList 'irm https://christitus.com/win | iex'
 }
 
+# Runs the Microsoft Activation Script for activating Windows and Office 365
 function mas {
     Start-Process powershell.exe -verb runas -ArgumentList 'irm https://massgrave.dev/get | iex'
 }
 
+# Overwrite the default broken Clear-History function with one that works
 function Clear-History {
     Remove-Item (Get-PSReadlineOption).HistorySavePath
 }
 
 # MARK: Location Shortcuts
 
+# Shortcut to Documents folder
 function doc { Set-Location -Path $HOME\Documents }
 
+# Shortcut to Downloads folder
 function dl { Set-Location -Path $HOME\Downloads }
 
+# Shortcut to GitHub folder
 function gh { Set-Location -Path $HOME\Documents\GitHub }
 
+# Shortcut to C: drive
 function c { Set-Location -Path C:\ }
 
 # MARK: Other
