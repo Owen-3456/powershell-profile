@@ -179,6 +179,12 @@ function c { Set-Location -Path C:\ }
 
 # MARK: Other
 
+# Runs fastfetch if installed
+
+if (Get-Command fastfetch -ErrorAction SilentlyContinue) {
+    fastfetch
+}
+
 # Set the prompt to use oh-my-posh
 oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json" | Invoke-Expression
 
