@@ -57,6 +57,29 @@ function Update-Profile {
 
 }
 
+# Updates all dependencies and then update powershell and the profile from GitHub
+function Update-All {
+    try {
+
+        # Update Oh My Posh
+        Write-Output "Updating Oh My Posh..."
+        winget update JanDeDobbeleer.OhMyPosh
+
+        # Update Zoxide
+        Write-Output "Updating Zoxide..."
+        winget update ajeetdsouza.zoxide
+
+        # Update Fzf
+        Write-Output "Updating Fzf..."
+        winget update fzf
+
+        Update-PowerShell
+        Update-Profile
+    } catch {
+        Write-Error "Failed to update all. Error: $_"
+    }
+}
+
 # Uploads a file to a pastebin service and returns the URL
 function hb {
  if ($args.Length -eq 0) {

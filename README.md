@@ -16,9 +16,13 @@ You need to install a [Nerd font](https://www.nerdfonts.com/) to use the theme. 
 
 ## Functions
 
+Note: Some functions missing from the list
+
 `Update-PowerShell` - Updates PowerShell to the latest version. Is ran on startup.
 
-`Update-Profile` - Updates the profile to the latest version.
+`Update-Profile` - Updates profile from GitHub.
+
+`Update-All` - Updates profile, Oh My Posh, Zioxide and fzf.
 
 `Reload-Profile` - Reloads the profile.
 
@@ -54,6 +58,6 @@ You need to install a [Nerd font](https://www.nerdfonts.com/) to use the theme. 
 
 `dl` - Opens the Downloads folder.
 
-`gh` - Opens the GitHub folder.
+`gh` - Opens the GitHub folder (...\Documents\GitHub).
 
 `c` - Opens the C: drive.
