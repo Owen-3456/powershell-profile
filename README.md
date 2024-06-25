@@ -15,7 +15,7 @@ This will install:
 - [Oh My Posh](https://ohmyposh.dev/)
 - [Zioxide](https://github.com/ajeetdsouza/zoxide)
 - [fzf](https://github.com/junegunn/fzf)
-- [Fastfeth](https://github.com/fastfetch-cli/fastfetch) with custom config
+- [Fastfetch](https://github.com/fastfetch-cli/fastfetch) with custom config
 
 You need to install a [Nerd font](https://www.nerdfonts.com/) to use the theme. Set the font in terminal.
 
