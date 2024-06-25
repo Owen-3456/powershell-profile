@@ -190,6 +190,12 @@ function Clear-History {
     Remove-Item (Get-PSReadlineOption).HistorySavePath
 }
 
+# Flushes the DNS cache
+function flushdns {
+	Clear-DnsClientCache
+	Write-Host "DNS has been flushed"
+}
+
 # MARK: Location Shortcuts
 
 # Shortcut to Documents folder
@@ -216,4 +222,4 @@ if (Get-Command fastfetch -ErrorAction SilentlyContinue) {
 oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json" | Invoke-Expression
 
 # Set up zoxide
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
+Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })

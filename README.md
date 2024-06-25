@@ -19,7 +19,11 @@ This will install:
 
 You need to install a [Nerd font](https://www.nerdfonts.com/) to use the theme. Set the font in terminal.
 
-## Functions
+## Zoxide
+
+`cd` function now uses [Zioxide](https://github.com/ajeetdsouza/zoxide). It's a smarter `cd` command that tracks your most used directories
+
+## New Functions
 
 Note: Some functions missing from the list
 
@@ -27,7 +31,7 @@ Note: Some functions missing from the list
 
 `Update-Profile` - Updates profile from GitHub.
 
-`Update-All` - Updates profile, Oh My Posh, Zioxide and fzf.
+`Update-All` - Updates profile and all dependecies.
 
 `Reload-Profile` - Reloads the profile.
 
@@ -54,6 +58,10 @@ Note: Some functions missing from the list
 `winutil` - Opens [Windows Utility](https://github.com/ChrisTitusTech/winutil).
 
 `mas` - Runs [Microsoft Activation Script](https://github.com/massgravel/Microsoft-Activation-Scripts).
+
+`flushdns` - Flushes the DNS cache.
+
+## Tweaked Functions
 
 `Clear-History` - The default `Clear-History` command doesn't work. It get overwritten with a command that does work.
 
