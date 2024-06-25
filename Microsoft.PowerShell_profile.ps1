@@ -73,6 +73,10 @@ function Update-All {
         Write-Output "Updating Fzf..."
         winget update fzf
 
+        # Update Fastfetch
+        Write-Output "Updating Fastfetch..."
+        winget update Fastfetch-cli.Fastfetch
+
         Update-PowerShell
         Update-Profile
     } catch {
