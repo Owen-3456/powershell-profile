@@ -11,7 +11,7 @@ irm https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/install.
 ```
 
 This will install:
-- PowerShell 7
+- [PowerShell 7](https://github.com/PowerShell/PowerShell)
 - [Oh My Posh](https://ohmyposh.dev/)
 - [Zioxide](https://github.com/ajeetdsouza/zoxide)
 - [fzf](https://github.com/junegunn/fzf)
