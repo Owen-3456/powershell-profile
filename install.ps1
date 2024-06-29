@@ -1,7 +1,7 @@
 Write-Host "Loading Owen3456's Profile" -ForegroundColor Cyan
 try {
     # Installs required programs
-    winget install Microsoft.PowerShell JanDeDobbeleer.OhMyPosh ajeetdsouza.zoxide fzf Fastfetch-cli.Fastfetch
+    winget install Microsoft.PowerShell JanDeDobbeleer.OhMyPosh ajeetdsouza.zoxide fzf Fastfetch-cli.Fastfetch gerardog.gsudo
 
     # Downloads profile and saves to file path
     $profileUrl = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/Microsoft.PowerShell_profile.ps1"

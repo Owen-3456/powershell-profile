@@ -16,12 +16,17 @@ This will install:
 - [Zioxide](https://github.com/ajeetdsouza/zoxide)
 - [fzf](https://github.com/junegunn/fzf)
 - [Fastfetch](https://github.com/fastfetch-cli/fastfetch) with custom config
+- [Gsudo](https://github.com/gerardog/gsudo)
 
 You need to install a [Nerd font](https://www.nerdfonts.com/) to use the theme. Set the font in terminal.
 
 ## Zoxide
 
 `cd` function now uses [Zioxide](https://github.com/ajeetdsouza/zoxide). It's a smarter `cd` command that tracks your most used directories
+
+## Gsudo
+
+[Gsudo](https://github.com/gerardog/gsudo) is a sudo alternative for Windows. It allows you to run commands as an administrator with `gsduo` or `sudo`
 
 ## New Functions
 
@@ -39,7 +44,7 @@ Note: Some functions missing from the list
 
 `ip` - Makes a curl request to https://api.ipify.org and returns your public IP address.
 
-`admin` or `sudo` - Opens a new PowerShell window as an administrator.
+`admin` - Opens a new PowerShell window as an administrator.
 
 `Edit-Profile` - Opens the profile in Visual Studio Code.
 

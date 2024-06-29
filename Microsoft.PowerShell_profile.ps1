@@ -130,9 +130,6 @@ function admin
     }
 }
 
-# Set up aliase for sudo and admin
-Set-Alias sudo admin
-
 # Opens the PowerShell profile in VSCode
 function Edit-Profile
 {
