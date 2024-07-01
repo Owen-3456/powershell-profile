@@ -5,12 +5,12 @@ try {
 
     # Downloads profile and saves to file path
     $profileUrl = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/Microsoft.PowerShell_profile.ps1"
-    $profilePath = "$HOME\Documents\PowerShell"
+    $profilePath = "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
     Invoke-WebRequest -Uri $profileUrl -OutFile $profilePath
     
     # Downloads fastfetch config and saves to file path
     $fastfetchconfigUrl = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/config.jsonc"
-    $fastfetchconfigPath = "$HOME\fastfetch"
+    $fastfetchconfigPath = "$HOME\fastfetch\config.jsonc"
     Invoke-WebRequest -Uri $fastfetchconfigUrl -OutFile $fastfetchconfigPath
 
     # Output completion message
