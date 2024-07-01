@@ -7,7 +7,7 @@ try {
     $profileUrl = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/Microsoft.PowerShell_profile.ps1"
     $profilePath = "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
     if (-not (Test-Path -Path $profilePath)) {
-        New-Item -ItemType Directory -Path $profilePath | Out-Null
+        New-Item -ItemType File -Path $profilePath -Force | Out-Null
     }
     Invoke-WebRequest -Uri $profileUrl -OutFile $profilePath
     
@@ -15,7 +15,7 @@ try {
     $fastfetchconfigUrl = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/config.jsonc"
     $fastfetchconfigPath = "$HOME\fastfetch\config.jsonc"
     if (-not (Test-Path -Path $fastfetchconfigPath)) {
-        New-Item -ItemType Directory -Path $fastfetchconfigPath | Out-Null
+        New-Item -ItemType File -Path $fastfetchconfigPath | Out-Null
     }
     Invoke-WebRequest -Uri $fastfetchconfigUrl -OutFile $fastfetchconfigPath
 
