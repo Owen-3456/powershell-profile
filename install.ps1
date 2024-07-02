@@ -15,11 +15,11 @@ try {
     $ohMyPosh_Config_Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/nordcustom.omp.json"
     $ohMyPosh_Config_Path = "$HOME\.oh-my-posh\nordcustom.omp.json"
     if (-not (Test-Path -Path $ohMyPosh_Config_Path)) {
-        $ohMyPosh_Config_Path_Path = Split-Path -Path $ohMyPosh_Config_Path -Parent
-        if (-not (Test-Path -Path $ohMyPosh_Config_Path_Path)) {
-            New-Item -ItemType Directory -Path $ohMyPosh_Config_Path_Path | Out-Null
+        $ohMyPosh_Config_Parent_Path = Split-Path -Path $ohMyPosh_Config_Path -Parent
+        if (-not (Test-Path -Path $ohMyPosh_Config_Parent_Path)) {
+            New-Item -ItemType Directory -Path $ohMyPosh_Config_Parent_Path | Out-Null
         }
-        New-Item -ItemType File -Path $ohMyPosh_Config_Dir -Force | Out-Null
+        New-Item -ItemType File -Path $ohMyPosh_Config_Path -Force | Out-Null
     }
     Invoke-WebRequest -Uri $ohMyPosh_Config_Url -OutFile $ohMyPosh_Config_Path
     
