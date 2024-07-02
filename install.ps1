@@ -10,6 +10,18 @@ try {
         New-Item -ItemType File -Path $profile_Path -Force | Out-Null
     }
     Invoke-WebRequest -Uri $profile_Url -OutFile $profile_Path
+
+    # Download Oh My Posh config and saves to file path
+    $ohMyPosh_Config_Url = ""
+    $ohMyPosh_Config_Path = "$HOME\.oh-my-posh\nordcustom.omp.json"
+    if (-not (Test-Path -Path $ohMyPosh_Config_Path)) {
+        $ohMyPosh_Config_Path_Path = Split-Path -Path $ohMyPosh_Config_Path -Parent
+        if (-not (Test-Path -Path $ohMyPosh_Config_Path_Path)) {
+            New-Item -ItemType Directory -Path $ohMyPosh_Config_Path_Path | Out-Null
+        }
+        New-Item -ItemType File -Path $ohMyPosh_Config_Dir -Force | Out-Null
+    }
+    Invoke-WebRequest -Uri $ohMyPosh_Config_Url -OutFile $ohMyPosh_Config_Path
     
     # Downloads fastfetch config and saves to file path
     $fastfetch_Config_Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/config.jsonc"

@@ -220,7 +220,7 @@ if (Get-Command fastfetch -ErrorAction SilentlyContinue) {
 }
 
 # Set the prompt to use oh-my-posh
-oh-my-posh init pwsh --config "https://raw.githubusercontent.com/AntonRyadovoy/pwsh_profile/main/nordcustom.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "$HOME/Documents/PowerShell/nordcustom.omp.json" | Invoke-Expression
 
 # Set up zoxide
 Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
