@@ -12,7 +12,7 @@ try {
     Invoke-WebRequest -Uri $profile_Url -OutFile $profile_Path
 
     # Download Oh My Posh config and saves to file path
-    $ohMyPosh_Config_Url = ""
+    $ohMyPosh_Config_Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/nordcustom.omp.json"
     $ohMyPosh_Config_Path = "$HOME\.oh-my-posh\nordcustom.omp.json"
     if (-not (Test-Path -Path $ohMyPosh_Config_Path)) {
         $ohMyPosh_Config_Path_Path = Split-Path -Path $ohMyPosh_Config_Path -Parent
