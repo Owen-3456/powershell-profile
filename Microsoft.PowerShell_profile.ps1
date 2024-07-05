@@ -119,14 +119,11 @@ function ip {
 # Opens a new PowerShell window as an administrator
 function admin
 {
-    if ($args.Count -gt 0)
-    {   
-       $argList = "& '" + $args + "'"
-       Start-Process "$psHome\pwsh.exe" -Verb runAs -ArgumentList $argList
-    }
-    else
-    {
-       Start-Process "$psHome\pwsh.exe" -Verb runAs
+    if ($args.Count -gt 0) {
+        $argList = "& '$args'"
+        Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -NoExit -Command $argList"
+    } else {
+        Start-Process wt -Verb runAs
     }
 }
 
