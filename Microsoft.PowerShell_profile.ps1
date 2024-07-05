@@ -174,11 +174,11 @@ function uptime {
 
 # Runs Christitus' Windows Utility Script
 function winutil {
-    Start-Process pwsh.exe -verb runas -ArgumentList 'irm https://christitus.com/win | iex'
+    Invoke-RestMethod "https://christitus.com/win/" | Invoke-Expression
 }
 
 function winutilDev {
-    Start-Process pwsh.exe -verb runas -ArgumentList 'irm https://christitus.com/windev | iex'
+    Invoke-RestMethod "https://christitus.com/windev/" | Invoke-Expression
 }
 
 # Runs the Microsoft Activation Script for activating Windows and Office 365
