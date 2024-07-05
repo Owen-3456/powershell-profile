@@ -38,9 +38,7 @@ Note: Some functions missing from the list
 
 `Update-PowerShell` - Updates PowerShell to the latest version. Is ran on startup.
 
-`Update-Profile` - Updates profile from GitHub.
-
-`Update-All` - Updates profile and all dependecies.
+`Update-Profile` - Updates profile from GitHub and all dependencies.
 
 `Reload-Profile` - Reloads the profile.
 

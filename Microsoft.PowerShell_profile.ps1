@@ -45,43 +45,9 @@ function Update-Profile {
         Write-Host "Skipping profile update check due to GitHub.com not responding within 1 second." -ForegroundColor Yellow
         return
     } else {
-        Write-Host "Grabbing Owen3456's profile from GitHub" -ForegroundColor Cyan
-        $profileUrl = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/Microsoft.PowerShell_profile.ps1"
-        $profilePath = "$HOME\Documents\PowerShell"
-        Invoke-WebRequest -Uri $profileUrl -OutFile $profilePath
-        Write-Host "Loaded latest version" -ForegroundColor Green
-        Write-Host "Reloading profile" -ForegroundColor Cyan
-        ReloadProfile
-        Write-Host "Profile reloaded" -ForegroundColor Green
+        Invoke-RestMethod "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/install.ps1" | Invoke-Expression
     }
 
-}
-
-# Updates all dependencies and then update powershell and the profile from GitHub
-function Update-All {
-    try {
-
-        # Update Oh My Posh
-        Write-Output "Updating Oh My Posh..."
-        winget update JanDeDobbeleer.OhMyPosh
-
-        # Update Zoxide
-        Write-Output "Updating Zoxide..."
-        winget update ajeetdsouza.zoxide
-
-        # Update Fzf
-        Write-Output "Updating Fzf..."
-        winget update fzf
-
-        # Update Fastfetch
-        Write-Output "Updating Fastfetch..."
-        winget update Fastfetch-cli.Fastfetch
-
-        Update-PowerShell
-        Update-Profile
-    } catch {
-        Write-Error "Failed to update all. Error: $_"
-    }
 }
 
 # Uploads a file to a pastebin service and returns the URL
