@@ -35,6 +35,9 @@ try {
     }
     Invoke-WebRequest -Uri $fastfetch_Config_Url -OutFile $fastfetch_Config_Path
 
+    # Install Terminal-Icons
+    Install-Module -Name Terminal-Icons -Repository PSGallery
+
     # Output completion message
     Write-Host "Loaded Owen3456's Profile" -ForegroundColor Green
 }

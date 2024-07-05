@@ -224,3 +224,6 @@ oh-my-posh init pwsh --config "$HOME/.oh-my-posh/nordcustom.omp.json" | Invoke-E
 
 # Set up zoxide
 Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
+
+# Import Terminal-Icons module
+Import-Module -Name Terminal-Icons

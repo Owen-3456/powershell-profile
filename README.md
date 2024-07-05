@@ -28,6 +28,10 @@ You need to install a [Nerd font](https://www.nerdfonts.com/) to use the theme. 
 
 [Gsudo](https://github.com/gerardog/gsudo) is a sudo alternative for Windows. It allows you to run commands as an administrator with `gsduo` or `sudo`
 
+## Modules
+
+- [Terminal-Icons](https://github.com/devblackops/Terminal-Icons)
+
 ## New Functions
 
 Note: Some functions missing from the list
