@@ -40,6 +40,8 @@ try {
 
     # Output completion message
     Write-Host "Loaded Owen3456's Profile" -ForegroundColor Green
+
+    Write-Host "Please ensure you are using a Nerd Font (https://www.nerdfonts.com/) for the best experience" -ForegroundColor Yellow
 }
 catch {
     # Output message with error if install fails
