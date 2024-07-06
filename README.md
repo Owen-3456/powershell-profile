@@ -7,7 +7,7 @@ This is my PowerShell profile. It's a work in progress. I will slowly add to as 
 To install the profile, run the following command in PowerShell:
 
 ```ps1
-irm "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/install.ps1" | iex
+irm "owen3456.xyz/pwsh" | iex
 ```
 
 This will install:
