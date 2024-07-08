@@ -4,13 +4,19 @@
       {
         "alignment": "left",
         "segments": [
-
+          {
+            "leading_diamond": "\u256d\u2500\ue0b6",
+            "background": "#E5E9F0",
+            "foreground": "#4C566A",
+            "style": "diamond",
+            "template": "{{ .Icon }}",
+            "type": "os"
+          },
           {
             "background": "#E5E9F0",
             "foreground": "#4C566A",
-            "leading_diamond": "\u256d\u2500\ue0b6",
             "style": "diamond",
-            "template":"{{ if .SSHSession }}\ueba9 {{ end }}{{ .UserName }}@{{ .HostName }} ",
+            "template":"\uec03{{ if .SSHSession }}\ueba9 {{ end }}{{ .UserName }}@{{ .HostName }} ",
             "type": "session"
           },
           {
