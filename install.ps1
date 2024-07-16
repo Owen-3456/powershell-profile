@@ -1,61 +1,46 @@
 Write-Host "Loading Owen3456's Profile" -ForegroundColor Cyan
-
-# Function to download and save a file if it doesn't already exist
-function Download-File {
-    param (
-        [string]$Url,
-        [string]$Path
-    )
-    $parentPath = Split-Path -Path $Path -Parent
-    if (-not (Test-Path -Path $parentPath)) {
-        New-Item -ItemType Directory -Path $parentPath | Out-Null
-    }
-    if (-not (Test-Path -Path $Path)) {
-        Invoke-RestMethod -Uri $Url -OutFile $Path
-    }
-}
-
 try {
-    # Check for winget availability
-    if (-not (Get-Command "winget" -ErrorAction SilentlyContinue)) {
-        # Download and install winget
-        $wingetInstallerUrl = "https://github.com/microsoft/winget-cli/releases/latest/download/winget-cli-msixbundle.msixbundle"
-        $wingetInstallerPath = "$env:TEMP\winget-cli.msixbundle"
-        Download-File -Url $wingetInstallerUrl -Path $wingetInstallerPath
-        Start-Process -Wait -FilePath "msixbundle" -ArgumentList "/i", $wingetInstallerPath
-    }
-
-    # Install required programs using winget
+    # Installs required programs
     winget install Microsoft.PowerShell JanDeDobbeleer.OhMyPosh ajeetdsouza.zoxide fzf Fastfetch-cli.Fastfetch gerardog.gsudo
-    
-    # Define files to download
-    $filesToDownload = @(
-        @{
-            Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/Microsoft.PowerShell_profile.ps1"
-            Path = "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
-        },
-        @{
-            Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/nordcustom.omp.json"
-            Path = "$HOME\.oh-my-posh\nordcustom.omp.json"
-        },
-        @{
-            Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/config.jsonc"
-            Path = "$HOME\fastfetch\config.jsonc"
+
+    # Downloads profile and saves to file path
+    $profile_Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/Microsoft.PowerShell_profile.ps1"
+    $profile_Path = "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+    if (-not (Test-Path -Path $profile_Path)) {
+        New-Item -ItemType File -Path $profile_Path -Force | Out-Null
+    }
+    Invoke-WebRequest -Uri $profile_Url -OutFile $profile_Path
+
+    # Download Oh My Posh config and saves to file path
+    $ohMyPosh_Config_Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/nordcustom.omp.json"
+    $ohMyPosh_Config_Path = "$HOME\.oh-my-posh\nordcustom.omp.json"
+    if (-not (Test-Path -Path $ohMyPosh_Config_Path)) {
+        $ohMyPosh_Config_Parent_Path = Split-Path -Path $ohMyPosh_Config_Path -Parent
+        if (-not (Test-Path -Path $ohMyPosh_Config_Parent_Path)) {
+            New-Item -ItemType Directory -Path $ohMyPosh_Config_Parent_Path | Out-Null
         }
-    )
-
-    # Download and save each file
-    foreach ($file in $filesToDownload) {
-        Download-File -Url $file.Url -Path $file.Path
+        New-Item -ItemType File -Path $ohMyPosh_Config_Path -Force | Out-Null
     }
-
-    # Install Terminal-Icons if not already installed
-    if (-not (Get-Module -ListAvailable -Name Terminal-Icons)) {
-        Install-Module -Name Terminal-Icons -Repository PSGallery -Scope CurrentUser
+    Invoke-WebRequest -Uri $ohMyPosh_Config_Url -OutFile $ohMyPosh_Config_Path
+    
+    # Downloads fastfetch config and saves to file path
+    $fastfetch_Config_Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/config.jsonc"
+    $fastfetch_Config_Path = "$HOME\fastfetch\config.jsonc"
+    if (-not (Test-Path -Path $fastfetch_Config_Path)) {
+        $fastfetch_Directory_Path = Split-Path -Path $fastfetch_Config_Path -Parent
+        if (-not (Test-Path -Path $fastfetch_Directory_Path)) {
+            New-Item -ItemType Directory -Path $fastfetch_Directory_Path | Out-Null
+        }
+        New-Item -ItemType File -Path $fastfetch_Config_Path | Out-Null
     }
+    Invoke-WebRequest -Uri $fastfetch_Config_Url -OutFile $fastfetch_Config_Path
+
+    # Install Terminal-Icons
+    Install-Module -Name Terminal-Icons -Repository PSGallery
 
     # Output completion message
     Write-Host "Loaded Owen3456's Profile" -ForegroundColor Green
+
     Write-Host "Please ensure you are using a Nerd Font (https://www.nerdfonts.com/) for the best experience" -ForegroundColor Yellow
 }
 catch {
