@@ -23,10 +23,12 @@ function Update-PowerShell {
             Write-Host "Updating PowerShell..." -ForegroundColor Yellow
             winget upgrade "Microsoft.PowerShell" --accept-source-agreements --accept-package-agreements
             Write-Host "PowerShell has been updated. Please restart your shell to reflect changes" -ForegroundColor Magenta
-        } else {
+        }
+        else {
             Write-Host "Your PowerShell is up to date." -ForegroundColor Green
         }
-    } catch {
+    }
+    catch {
         Write-Error "Failed to update PowerShell. Error: $_"
     }
 }
@@ -44,7 +46,8 @@ function Update-Profile {
     if (-not $global:canConnectToGitHub) {
         Write-Host "Skipping profile update check due to GitHub.com not responding within 1 second." -ForegroundColor Yellow
         return
-    } else {
+    }
+    else {
         Invoke-RestMethod "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/install.ps1" | Invoke-Expression
     }
 
@@ -52,29 +55,31 @@ function Update-Profile {
 
 # Uploads a file to a pastebin service and returns the URL
 function hb {
- if ($args.Length -eq 0) {
- Write-Error "No file path specified."
- return
- }
+    if ($args.Length -eq 0) {
+        Write-Error "No file path specified."
+        return
+    }
 
- $FilePath = $args[0]
+    $FilePath = $args[0]
 
- if (Test-Path $FilePath) {
- $Content = Get-Content $FilePath -Raw
- } else {
- Write-Error "File path does not exist."
- return
- }
+    if (Test-Path $FilePath) {
+        $Content = Get-Content $FilePath -Raw
+    }
+    else {
+        Write-Error "File path does not exist."
+        return
+    }
 
- $uri = "http://bin.christitus.com/documents"
- try {
- $response = Invoke-RestMethod -Uri $uri -Method Post -Body $Content -ErrorAction Stop
- $hasteKey = $response.key
- $url = "http://bin.christitus.com/$hasteKey"
- Write-Output $url
- } catch {
- Write-Error "Failed to upload the document. Error: $_"
- }
+    $uri = "http://bin.christitus.com/documents"
+    try {
+        $response = Invoke-RestMethod -Uri $uri -Method Post -Body $Content -ErrorAction Stop
+        $hasteKey = $response.key
+        $url = "http://bin.christitus.com/$hasteKey"
+        Write-Output $url
+    }
+    catch {
+        Write-Error "Failed to upload the document. Error: $_"
+    }
 }
 
 # Outputs the current external IP address
@@ -83,19 +88,18 @@ function ip {
 }
 
 # Opens a new PowerShell window as an administrator
-function admin
-{
+function admin {
     if ($args.Count -gt 0) {
         $argList = "& '$args'"
         Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -NoExit -Command $argList"
-    } else {
+    }
+    else {
         Start-Process wt -Verb runAs
     }
 }
 
 # Opens the PowerShell profile in VSCode
-function Edit-Profile
-{
+function Edit-Profile {
     code $PROFILE
     # Change code to your editor of choice (e.g. notepad $PROFILE) 
 }
@@ -105,10 +109,10 @@ function ll { Get-ChildItem -Path $pwd -File }
 
 # Finds file inside the current directory and subdirectories much faster than the built-in search in explorer.exe
 function find-file($name) {
-        Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
-                $place_path = $_.directory
-                Write-Output "${place_path}\${_}"
-        }
+    Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
+        $place_path = $_.directory
+        Write-Output "${place_path}\${_}"
+    }
 }
 
 # Set up aliases for find-file
@@ -116,21 +120,22 @@ Set-Alias ff find-file
 
 # Unzips a file to the current directory
 function unzip ($file) {
-        Write-Output("Extracting", $file, "to", $pwd)
-	$fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object{$_.FullName}
-        Expand-Archive -Path $fullFile -DestinationPath $pwd
+    Write-Output("Extracting", $file, "to", $pwd)
+    $fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object { $_.FullName }
+    Expand-Archive -Path $fullFile -DestinationPath $pwd
 }
 
 # Kills any process containing the name given
 function pkill($name) {
-        Get-Process $name -ErrorAction SilentlyContinue | Stop-Process
+    Get-Process $name -ErrorAction SilentlyContinue | Stop-Process
 }
 
 # Outputs current system uptime
 function uptime {
     if ($PSVersionTable.PSVersion.Major -eq 5) {
-        Get-WmiObject win32_operatingsystem | Select-Object @{Name='LastBootUpTime'; Expression={$_.ConverttoDateTime($_.lastbootuptime)}} | Format-Table -HideTableHeaders
-    } else {
+        Get-WmiObject win32_operatingsystem | Select-Object @{Name = 'LastBootUpTime'; Expression = { $_.ConverttoDateTime($_.lastbootuptime) } } | Format-Table -HideTableHeaders
+    }
+    else {
         net statistics workstation | Select-String "since" | ForEach-Object { $_.ToString().Replace('Statistics since ', '') }
     }
 }
@@ -156,8 +161,8 @@ function Clear-History {
 
 # Flushes the DNS cache
 function flushdns {
-	Clear-DnsClientCache
-	Write-Host "DNS has been flushed"
+    Clear-DnsClientCache
+    Write-Host "DNS has been flushed"
 }
 
 # MARK: Location Shortcuts
