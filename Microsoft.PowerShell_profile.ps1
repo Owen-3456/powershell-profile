@@ -206,10 +206,14 @@ function Clear-History {
     Remove-Item (Get-PSReadlineOption).HistorySavePath
 }
 
-# Flushes the DNS cache
 function flushdns {
-    Clear-DnsClientCache
-    Write-Host "DNS has been flushed"
+    try {
+        Clear-DnsClientCache -ErrorAction Stop
+        Write-Host "DNS cache has been successfully flushed." -ForegroundColor Green
+    }
+    catch {
+        Write-Error "Failed to flush DNS cache. Error: $_"
+    }
 }
 
 # MARK: Location Shortcuts
