@@ -1,7 +1,7 @@
 Write-Host "Loading Owen3456's Profile" -ForegroundColor Cyan
 
 # Function to download and save a file if it doesn't already exist
-function Download-File {
+function Get-File {
     param (
         [string]$Url,
         [string]$Path
@@ -21,7 +21,7 @@ try {
         # Download and install winget
         $wingetInstallerUrl = "https://github.com/microsoft/winget-cli/releases/latest/download/winget-cli-msixbundle.msixbundle"
         $wingetInstallerPath = "$env:TEMP\winget-cli.msixbundle"
-        Download-File -Url $wingetInstallerUrl -Path $wingetInstallerPath
+        Get-File -Url $wingetInstallerUrl -Path $wingetInstallerPath
         Start-Process -Wait -FilePath "msixbundle" -ArgumentList "/i", $wingetInstallerPath
     }
 
@@ -46,7 +46,7 @@ try {
 
     # Download and save each file
     foreach ($file in $filesToDownload) {
-        Download-File -Url $file.Url -Path $file.Path
+        Get-File -Url $file.Url -Path $file.Path
     }
 
     # Install Terminal-Icons if not already installed
