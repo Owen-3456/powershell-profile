@@ -25,7 +25,8 @@ function Update-PowerShell {
             $wingetOutput = winget upgrade "Microsoft.PowerShell" --accept-source-agreements --accept-package-agreements
             if ($wingetOutput -match "No applicable update found.") {
                 Write-Host "No applicable update found. Your PowerShell might be up to date or check your winget sources." -ForegroundColor Yellow
-            } else {
+            }
+            else {
                 Write-Host "PowerShell has been updated to version $latestVersion. Please restart your shell to reflect changes." -ForegroundColor Magenta
             }
         }
@@ -46,17 +47,48 @@ function ReloadProfile {
     . $PROFILE
 }
 
-# Grabs the new file from GitHub and reloads the profile
 function Update-Profile {
-    if (-not $global:canConnectToGitHub) {
-        Write-Host "Skipping profile update check due to GitHub.com not responding within 1 second." -ForegroundColor Yellow
+    # Check connectivity to both sources before attempting updates
+    $canConnectToWebsite = Test-Connection owen3456.xyz -Count 1 -Quiet -TimeoutSeconds 1
+
+    if (-not $canConnectToWebsite -and -not $canConnectToGitHub) {
+        Write-Error "Failed to update profile. Unable to connect to both owen3456.xyz and GitHub."
         return
     }
-    else {
-        Invoke-RestMethod "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/install.ps1" | Invoke-Expression
+
+    $updateUrls = @()
+    if ($canConnectToWebsite) {
+        $updateUrls += "https://owen3456.xyz/pwsh"
+    }
+    if ($canConnectToGitHub) {
+        $updateUrls += "https://raw.githubusercontent.com/owen3456/pwsh/main/Microsoft.PowerShell_profile.ps1"
     }
 
+    foreach ($url in $updateUrls) {
+        try {
+            Write-Host "Attempting to update profile from $url" -ForegroundColor Cyan
+            
+            # Securely fetching the script content
+            $scriptContent = Invoke-RestMethod -Uri $url -UseBasicParsing
+
+            # Consider validating the script content here for security
+            
+            # Execute the script content
+            Invoke-Expression $scriptContent
+
+            Write-Host "Profile updated successfully from $url." -ForegroundColor Green
+            # Reload the profile
+            . $PROFILE
+            return # Exit after the first successful update
+        }
+        catch {
+            Write-Error "Failed to update profile from $url. Error: $_"
+        }
+    }
 }
+
+# Runs the Update-Profile function on startup
+Update-Profile
 
 # Uploads a file to a pastebin service and returns the URL
 function hb {
