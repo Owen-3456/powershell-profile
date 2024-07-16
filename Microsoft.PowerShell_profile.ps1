@@ -122,10 +122,17 @@ function hb {
     }
 }
 
-# Outputs the current external IP address
-function ip {
- (Invoke-WebRequest 'http://ifconfig.me/ip').Content
+function Get-PublicIP {
+    try {
+        $response = Invoke-RestMethod -Uri 'https://ifconfig.me/ip' -TimeoutSec 5 -ErrorAction Stop
+        Write-Output "Your public IP address is: $response"
+    }
+    catch {
+        Write-Error "Failed to retrieve public IP address. Error: $_"
+    }
 }
+
+Set-Alias ip Get-PublicIP
 
 # Opens a new PowerShell window as an administrator
 function admin {
