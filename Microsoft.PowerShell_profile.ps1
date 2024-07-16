@@ -93,7 +93,7 @@ Update-Profile
 # Uploads a file to a pastebin service and returns the URL
 function hb {
     param (
-        [Parameter(Mandatory=$true, Position=0)]
+        [Parameter(Mandatory = $true, Position = 0)]
         [string]$FilePath
     )
 
