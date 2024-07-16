@@ -92,27 +92,30 @@ Update-Profile
 
 # Uploads a file to a pastebin service and returns the URL
 function hb {
-    if ($args.Length -eq 0) {
-        Write-Error "No file path specified."
+    param (
+        [Parameter(Mandatory=$true, Position=0)]
+        [string]$FilePath
+    )
+
+    if (-not (Test-Path $FilePath)) {
+        Write-Error "File path does not exist: $FilePath"
         return
     }
 
-    $FilePath = $args[0]
-
-    if (Test-Path $FilePath) {
+    try {
         $Content = Get-Content $FilePath -Raw
     }
-    else {
-        Write-Error "File path does not exist."
+    catch {
+        Write-Error "Failed to read file content. Error: $_"
         return
     }
 
-    $uri = "http://bin.christitus.com/documents"
+    $uri = "https://bin.christitus.com/documents"
     try {
-        $response = Invoke-RestMethod -Uri $uri -Method Post -Body $Content -ErrorAction Stop
+        $response = Invoke-RestMethod -Uri $uri -Method Post -ContentType "application/json" -Body ($Content | ConvertTo-Json) -ErrorAction Stop
         $hasteKey = $response.key
-        $url = "http://bin.christitus.com/$hasteKey"
-        Write-Output $url
+        $url = "https://bin.christitus.com/$hasteKey"
+        Write-Output "Document uploaded successfully: $url"
     }
     catch {
         Write-Error "Failed to upload the document. Error: $_"
