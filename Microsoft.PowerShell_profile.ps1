@@ -87,9 +87,6 @@ function Update-Profile {
     }
 }
 
-# Runs the Update-Profile function on startup
-Update-Profile
-
 # Uploads a file to a pastebin service and returns the URL
 function hb {
     param (
