@@ -10,22 +10,27 @@ function Update-PowerShell {
 
     try {
         Write-Host "Checking for PowerShell updates..." -ForegroundColor Cyan
-        $updateNeeded = $false
-        $currentVersion = $PSVersionTable.PSVersion.ToString()
+        
         $gitHubApiUrl = "https://api.github.com/repos/PowerShell/PowerShell/releases/latest"
         $latestReleaseInfo = Invoke-RestMethod -Uri $gitHubApiUrl
         $latestVersion = $latestReleaseInfo.tag_name.Trim('v')
-        if ($currentVersion -lt $latestVersion) {
-            $updateNeeded = $true
-        }
+        $currentVersion = $PSVersionTable.PSVersion
 
-        if ($updateNeeded) {
-            Write-Host "Updating PowerShell..." -ForegroundColor Yellow
-            winget upgrade "Microsoft.PowerShell" --accept-source-agreements --accept-package-agreements
-            Write-Host "PowerShell has been updated. Please restart your shell to reflect changes" -ForegroundColor Magenta
+        # Convert version strings to Version objects for accurate comparison
+        $latestVersionObj = [Version]$latestVersion
+        $currentVersionObj = [Version]$currentVersion.ToString()
+
+        if ($currentVersionObj -lt $latestVersionObj) {
+            Write-Host "A new PowerShell version ($latestVersion) is available. Updating..." -ForegroundColor Yellow
+            $wingetOutput = winget upgrade "Microsoft.PowerShell" --accept-source-agreements --accept-package-agreements
+            if ($wingetOutput -match "No applicable update found.") {
+                Write-Host "No applicable update found. Your PowerShell might be up to date or check your winget sources." -ForegroundColor Yellow
+            } else {
+                Write-Host "PowerShell has been updated to version $latestVersion. Please restart your shell to reflect changes." -ForegroundColor Magenta
+            }
         }
         else {
-            Write-Host "Your PowerShell is up to date." -ForegroundColor Green
+            Write-Host "Your PowerShell ($currentVersion) is up to date." -ForegroundColor Green
         }
     }
     catch {
