@@ -213,6 +213,15 @@ function flushdns {
     }
 }
 
+# Uses fzf to select a directory and change to it
+# sd = Search Directories
+function sd {
+    $selectedDir = Get-ChildItem -Directory -Recurse | Select-Object -ExpandProperty FullName | fzf
+    if ($selectedDir) {
+        Set-Location -Path $selectedDir
+    }
+}
+
 # MARK: Location Shortcuts
 
 # Shortcut to Documents folder

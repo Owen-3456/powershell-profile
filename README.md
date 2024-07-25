@@ -68,6 +68,8 @@ Note: Some functions missing from the list
 
 `flushdns` - Flushes the DNS cache.
 
+`sd` - Runs a fuzzy find and changes to the selected directory.
+
 ## Tweaked Functions
 
 `Clear-History` - The default `Clear-History` command doesn't work. It get overwritten with a command that does work.
