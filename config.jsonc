@@ -3,8 +3,7 @@
   "logo": {
     "type": "builtin",
     "color": {
-      "1": "white",
-      "2": "cyan"
+      "1": "cyan"
     }
   },
   "display": {
