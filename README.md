@@ -2,6 +2,8 @@
 
 This is my PowerShell profile. It's a work in progress. I will slowly add to as I find more useful functions and aliases.
 
+Designed with a Nord theme to match my [Windows Terminal Nord Colour Scheme](https://github.com/Owen-3456/wt-nord)
+
 ## Installation
 
 To install the profile, run the following command in PowerShell:
