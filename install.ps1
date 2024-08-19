@@ -39,9 +39,18 @@ try {
     Install-Module -Name Terminal-Icons -Repository PSGallery
 
     # Output completion message
+    Write-Host ""
+    Write-Host ""
+    Write-Host ""
+    Write-Host "-------------------------------------------------------------" -ForegroundColor Green
     Write-Host "Loaded Owen3456's Profile" -ForegroundColor Green
+    Write-Host "Ensure you are using a Nerd Font (https://www.nerdfonts.com/)" -ForegroundColor Yellow
+    Write-Host "Restart your terminal to apply changes" -ForegroundColor Yellow
+    Write-Host "-------------------------------------------------------------" -ForegroundColor Green
+    Write-Host ""
+    Write-Host ""
+    Write-Host ""
 
-    Write-Host "Please ensure you are using a Nerd Font (https://www.nerdfonts.com/) for the best experience" -ForegroundColor Yellow
 }
 catch {
     # Output message with error if install fails
