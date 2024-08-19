@@ -11,7 +11,6 @@
     "color": "cyan"
   },
   "modules": [
-    
     {
       "type": "custom",
       "format": "┌─────────── \u001b[1mHardware Information\u001b[0m ───────────┐"
@@ -39,7 +38,7 @@
     },
     {
       "type": "custom",
-      "format": "├─────────── \u001b[1mSoftware Information\u001b[0m ───────────┤"
+      "format": "├────────────── \u001b[1mOS Information\u001b[0m ──────────────┤"
     },
     {
       "type": "os",
@@ -55,12 +54,24 @@
       "key": "   "
     },
     {
+      "type": "custom",
+      "format": "├─────────── \u001b[1mSoftware Information\u001b[0m ───────────┤"
+    },
+    {
       "type": "shell",
-      "key": "   "
+      "key": "  󰨊 "
+    },
+    {
+      "type": "terminal",
+      "key": "   "
+    },
+    {
+      "type": "packages",
+      "key": "  󰇚 "
     },
     {
       "type": "custom",
-      "format": "|──────────────\u001b[1mUptime / Age\u001b[0m──────────────────|"
+      "format": "|───────────── \u001b[1mUptime / Age\u001b[0m ─────────────────|"
     },
     {
       "type": "command",
@@ -76,11 +87,6 @@
     {
       "type": "custom",
       "format": "└────────────────────────────────────────────┘"
-    },
-    {
-      "type": "colors",
-      "paddingLeft": 2,
-      "symbol": "circle"
     }
   ]
 }
