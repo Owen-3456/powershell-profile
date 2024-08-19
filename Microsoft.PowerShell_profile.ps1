@@ -220,6 +220,16 @@ function sd {
     if ($selectedDir) {
         Set-Location -Path $selectedDir
     }
+
+# Makes a new directory and navigates to it
+function mkcd {
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [string]$dirName
+    )
+    New-Item -ItemType Directory -Path $dirName | Out-Null
+    Set-Location -Path $dirName
+    Write-Host "Created and navigated to $dirName" -ForegroundColor Green
 }
 
 # MARK: Location Shortcuts
