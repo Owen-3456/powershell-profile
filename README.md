@@ -1,5 +1,10 @@
 # My PowerShell profile
 
+<div align="right">
+<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/t/Owen-3456/powershell-profile">
+<img src="https://img.shields.io/github/last-commit/Owen-3456/powershell-profile">
+</div>
+
 This is my PowerShell profile. It's a work in progress. I will slowly add to as I find more useful functions and aliases.
 
 Designed with a Nord theme to match my [Windows Terminal Nord Colour Scheme](https://github.com/Owen-3456/wt-nord)
