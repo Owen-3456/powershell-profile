@@ -243,6 +243,12 @@ function mkcd {
     Write-Host "Created and navigated to $dirName" -ForegroundColor Green
 }
 
+# Lists all installed winget packages
+function Get-Packages {
+    winget list | Format-Table -AutoSize
+}
+
+
 # MARK: Location Shortcuts
 
 # Shortcut to Documents folder
