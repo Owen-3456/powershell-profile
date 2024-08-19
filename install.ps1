@@ -11,9 +11,13 @@ try {
     }
     Invoke-WebRequest -Uri $profile_Url -OutFile $profile_Path
 
+    if (-not (Test-Path -Path "$Home\.config")){
+        New-Item -ItemType Directory -Path "$Home\.config" | Out-Null
+    }
+
     # Download Oh My Posh config and saves to file path
     $ohMyPosh_Config_Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/nordcustom.omp.json"
-    $ohMyPosh_Config_Path = "$HOME\.oh-my-posh\nordcustom.omp.json"
+    $ohMyPosh_Config_Path = "$HOME\.config\oh-my-posh\nordcustom.omp.json"
     if (-not (Test-Path -Path $ohMyPosh_Config_Path)) {
         $ohMyPosh_Config_Parent_Path = Split-Path -Path $ohMyPosh_Config_Path -Parent
         if (-not (Test-Path -Path $ohMyPosh_Config_Parent_Path)) {
@@ -25,7 +29,7 @@ try {
     
     # Downloads fastfetch config and saves to file path
     $fastfetch_Config_Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/config.jsonc"
-    $fastfetch_Config_Path = "$HOME\fastfetch\config.jsonc"
+    $fastfetch_Config_Path = "$HOME\.config\fastfetch\config.jsonc"
     if (-not (Test-Path -Path $fastfetch_Config_Path)) {
         $fastfetch_Directory_Path = Split-Path -Path $fastfetch_Config_Path -Parent
         if (-not (Test-Path -Path $fastfetch_Directory_Path)) {
