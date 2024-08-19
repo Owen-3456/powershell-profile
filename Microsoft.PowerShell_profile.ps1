@@ -265,12 +265,6 @@ function c { Set-Location -Path C:\ }
 
 # MARK: Other
 
-# Runs fastfetch if installed
-
-if (Get-Command fastfetch -ErrorAction SilentlyContinue) {
-    fastfetch
-}
-
 # Set the prompt to use oh-my-posh
 oh-my-posh init pwsh --config "$HOME/.oh-my-posh/nordcustom.omp.json" | Invoke-Expression
 
@@ -279,3 +273,9 @@ Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
 
 # Import Terminal-Icons module
 Import-Module -Name Terminal-Icons
+
+# Runs fastfetch if installed
+
+if (Get-Command fastfetch -ErrorAction SilentlyContinue) {
+    fastfetch
+}
