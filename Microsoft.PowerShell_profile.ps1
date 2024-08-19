@@ -222,7 +222,8 @@ function sd {
         if ($selectedDirectory) {
             Set-Location -Path $selectedDirectory
             Write-Host "Changed directory to $selectedDirectory" -ForegroundColor Green
-        } else {
+        }
+        else {
             Write-Host "No directory selected." -ForegroundColor Yellow
         }
     }
