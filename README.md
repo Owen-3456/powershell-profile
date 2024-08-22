@@ -24,6 +24,7 @@ This will install:
 - [fzf](https://github.com/junegunn/fzf)
 - [Fastfetch](https://github.com/fastfetch-cli/fastfetch)
 - [Gsudo](https://github.com/gerardog/gsudo)
+- [bat](https://github.com/sharkdp/bat)
 
 You need to install a [Nerd font](https://www.nerdfonts.com/) to use the theme. Set the font in terminal.
 
