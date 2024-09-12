@@ -119,17 +119,20 @@ function hb {
     }
 }
 
-function Get-PublicIP {
+function Get-IP {
     try {
-        $response = Invoke-RestMethod -Uri 'https://ifconfig.me/ip' -TimeoutSec 5 -ErrorAction Stop
-        Write-Output "Your public IP address is: $response"
+        $privateIP = (Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_.PrefixOrigin -eq 'Manual'}).IPAddress
+        Write-Output "Your private IP address is: $privateIP"
+
+        $publicIP = Invoke-RestMethod -Uri 'https://ifconfig.me/ip' -TimeoutSec 5 -ErrorAction Stop
+        Write-Output "Your public IP address is: $publicIP"
     }
     catch {
-        Write-Error "Failed to retrieve public IP address. Error: $_"
+        Write-Error "Failed to retrieve IP address. Error: $_"
     }
 }
 
-Set-Alias ip Get-PublicIP
+Set-Alias ip Get-IP
 
 # Opens a new PowerShell window as an administrator
 function admin {
