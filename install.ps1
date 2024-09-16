@@ -42,6 +42,9 @@ try {
     # Install Terminal-Icons
     Install-Module -Name Terminal-Icons -Repository PSGallery
 
+    # Command to install a nerd font
+    oh-my-posh font install
+
     # Output completion message
     Write-Host ""
     Write-Host ""
