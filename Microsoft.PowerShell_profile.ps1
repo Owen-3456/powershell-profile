@@ -1,5 +1,5 @@
 # Checks connection to GitHub
-$canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds 1
+# $canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds 1
 
 # Checks for PowerShell updates and installs them if needed
 function Update-PowerShell {
@@ -40,7 +40,7 @@ function Update-PowerShell {
 }
 
 # Runs the Update-PowerShell function on startup
-Update-PowerShell
+# Update-PowerShell
 
 # Reloads the profile
 function ReloadProfile {
