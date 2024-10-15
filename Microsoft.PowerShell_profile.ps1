@@ -1,8 +1,3 @@
-# Reloads the profile
-function ReloadProfile {
-    . $PROFILE
-}
-
 function Update-Profile {
     Write-Host "Updating Owen3456's Profile" -ForegroundColor Cyan
     try {
