@@ -255,3 +255,5 @@ Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
 
 # Import Terminal-Icons module
 Import-Module -Name Terminal-Icons
+
+Clear-Host
