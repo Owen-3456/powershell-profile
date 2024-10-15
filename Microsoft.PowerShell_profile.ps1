@@ -1,89 +1,73 @@
-# Checks connection to GitHub
-# $canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds 1
-
-# Checks for PowerShell updates and installs them if needed
-function Update-PowerShell {
-    if (-not $global:canConnectToGitHub) {
-        Write-Host "Skipping PowerShell update check due to GitHub.com not responding within 1 second." -ForegroundColor Yellow
-        return
-    }
-
-    try {
-        Write-Host "Checking for PowerShell updates..." -ForegroundColor Cyan
-        
-        $gitHubApiUrl = "https://api.github.com/repos/PowerShell/PowerShell/releases/latest"
-        $latestReleaseInfo = Invoke-RestMethod -Uri $gitHubApiUrl
-        $latestVersion = $latestReleaseInfo.tag_name.Trim('v')
-        $currentVersion = $PSVersionTable.PSVersion
-
-        # Convert version strings to Version objects for accurate comparison
-        $latestVersionObj = [Version]$latestVersion
-        $currentVersionObj = [Version]$currentVersion.ToString()
-
-        if ($currentVersionObj -lt $latestVersionObj) {
-            Write-Host "A new PowerShell version ($latestVersion) is available. Updating..." -ForegroundColor Yellow
-            $wingetOutput = winget upgrade "Microsoft.PowerShell" --accept-source-agreements --accept-package-agreements
-            if ($wingetOutput -match "No applicable update found.") {
-                Write-Host "No applicable update found. Your PowerShell might be up to date or check your winget sources." -ForegroundColor Yellow
-            }
-            else {
-                Write-Host "PowerShell has been updated to version $latestVersion. Please restart your shell to reflect changes." -ForegroundColor Magenta
-            }
-        }
-        else {
-            Write-Host "Your PowerShell ($currentVersion) is up to date." -ForegroundColor Green
-        }
-    }
-    catch {
-        Write-Error "Failed to update PowerShell. Error: $_"
-    }
-}
-
-# Runs the Update-PowerShell function on startup
-# Update-PowerShell
-
 # Reloads the profile
 function ReloadProfile {
     . $PROFILE
 }
 
 function Update-Profile {
-    # Check connectivity to both sources before attempting updates
-    $canConnectToWebsite = Test-Connection owen3456.xyz -Count 1 -Quiet -TimeoutSeconds 1
-
-    if (-not $canConnectToWebsite -and -not $canConnectToGitHub) {
-        Write-Error "Failed to update profile. Unable to connect to both owen3456.xyz and GitHub."
-        return
-    }
-
-    $updateUrls = @()
-    if ($canConnectToWebsite) {
-        $updateUrls += "https://owen3456.xyz/pwsh"
-    }
-    if ($canConnectToGitHub) {
-        $updateUrls += "https://raw.githubusercontent.com/owen3456/pwsh/main/Microsoft.PowerShell_profile.ps1"
-    }
-
-    foreach ($url in $updateUrls) {
-        try {
-            Write-Host "Attempting to update profile from $url" -ForegroundColor Cyan
-            
-            # Securely fetching the script content
-            $scriptContent = Invoke-RestMethod -Uri $url -UseBasicParsing
-
-            # Consider validating the script content here for security
-            
-            # Execute the script content
-            Invoke-Expression $scriptContent
-
-            Write-Host "Profile updated successfully from $url." -ForegroundColor Green
-            # Reload the profile
-            . $PROFILE
-            return # Exit after the first successful update
+    Write-Host "Updating Owen3456's Profile" -ForegroundColor Cyan
+    try {
+        # Installs required programs
+        winget install Microsoft.PowerShell JanDeDobbeleer.OhMyPosh ajeetdsouza.zoxide fzf Fastfetch-cli.Fastfetch gerardog.gsudo sharkdp.bat
+    
+        # Downloads profile and saves to file path
+        $profile_Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/Microsoft.PowerShell_profile.ps1"
+        $profile_Path = "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+        if (-not (Test-Path -Path $profile_Path)) {
+            New-Item -ItemType File -Path $profile_Path -Force | Out-Null
         }
-        catch {
-            Write-Error "Failed to update profile from $url. Error: $_"
+        Invoke-WebRequest -Uri $profile_Url -OutFile $profile_Path
+    
+        if (-not (Test-Path -Path "$Home\.config")){
+            New-Item -ItemType Directory -Path "$Home\.config" | Out-Null
         }
+    
+        # Download Oh My Posh config and saves to file path
+        $ohMyPosh_Config_Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/nordcustom.omp.json"
+        $ohMyPosh_Config_Path = "$HOME\.config\oh-my-posh\nordcustom.omp.json"
+        if (-not (Test-Path -Path $ohMyPosh_Config_Path)) {
+            $ohMyPosh_Config_Parent_Path = Split-Path -Path $ohMyPosh_Config_Path -Parent
+            if (-not (Test-Path -Path $ohMyPosh_Config_Parent_Path)) {
+                New-Item -ItemType Directory -Path $ohMyPosh_Config_Parent_Path | Out-Null
+            }
+            New-Item -ItemType File -Path $ohMyPosh_Config_Path -Force | Out-Null
+        }
+        Invoke-WebRequest -Uri $ohMyPosh_Config_Url -OutFile $ohMyPosh_Config_Path
+        
+        # Downloads fastfetch config and saves to file path
+        $fastfetch_Config_Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/config.jsonc"
+        $fastfetch_Config_Path = "$HOME\.config\fastfetch\config.jsonc"
+        if (-not (Test-Path -Path $fastfetch_Config_Path)) {
+            $fastfetch_Directory_Path = Split-Path -Path $fastfetch_Config_Path -Parent
+            if (-not (Test-Path -Path $fastfetch_Directory_Path)) {
+                New-Item -ItemType Directory -Path $fastfetch_Directory_Path | Out-Null
+            }
+            New-Item -ItemType File -Path $fastfetch_Config_Path | Out-Null
+        }
+        Invoke-WebRequest -Uri $fastfetch_Config_Url -OutFile $fastfetch_Config_Path
+    
+        # Install Terminal-Icons
+        Install-Module -Name Terminal-Icons -Repository PSGallery
+    
+        # Command to install a nerd font
+        oh-my-posh font install
+    
+        # Output completion message
+        Write-Host ""
+        Write-Host ""
+        Write-Host ""
+        Write-Host "-----------------------------------------------------------------" -ForegroundColor Green
+        Write-Host "  Updated Owen3456's Profile" -ForegroundColor Green
+        Write-Host "  Ensure you are using a Nerd Font (https://www.nerdfonts.com/)" -ForegroundColor Yellow
+        Write-Host "  Restart your terminal to apply changes" -ForegroundColor Yellow
+        Write-Host "-----------------------------------------------------------------" -ForegroundColor Green
+        Write-Host ""
+        Write-Host ""
+        Write-Host ""
+    
+    }
+    catch {
+        # Output message with error if install fails
+        Write-Error "Failed to update profile. Error: $_"
     }
 }
 
