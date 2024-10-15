@@ -17,7 +17,7 @@ function Update-Profile {
         }
         Invoke-WebRequest -Uri $profile_Url -OutFile $profile_Path
     
-        if (-not (Test-Path -Path "$Home\.config")){
+        if (-not (Test-Path -Path "$Home\.config")) {
             New-Item -ItemType Directory -Path "$Home\.config" | Out-Null
         }
     
@@ -105,7 +105,7 @@ function hb {
 
 function Get-IP {
     try {
-        $privateIP = (Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_.PrefixOrigin -eq 'Manual'}).IPAddress
+        $privateIP = (Get-NetIPAddress | Where-Object { $_.AddressFamily -eq 'IPv4' -and $_.PrefixOrigin -eq 'Manual' }).IPAddress
         Write-Output "Your private IP address is: $privateIP"
 
         $publicIP = Invoke-RestMethod -Uri 'https://ifconfig.me/ip' -TimeoutSec 5 -ErrorAction Stop
@@ -260,9 +260,3 @@ Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
 
 # Import Terminal-Icons module
 Import-Module -Name Terminal-Icons
-
-# Runs fastfetch if installed
-
-if (Get-Command fastfetch -ErrorAction SilentlyContinue) {
-    fastfetch
-}
