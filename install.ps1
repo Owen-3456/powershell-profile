@@ -42,6 +42,9 @@ try {
     # Install Terminal-Icons
     Install-Module -Name Terminal-Icons -Repository PSGallery
 
+    # Disable PowerShell 7 telemetry
+    [Environment]::SetEnvironmentVariable('POWERSHELL_TELEMETRY_OPTOUT', '1', 'Machine')
+
     # Command to install a nerd font
     oh-my-posh font install
 
