@@ -3,6 +3,7 @@
 <div align="right">
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/t/Owen-3456/powershell-profile">
 <img src="https://img.shields.io/github/last-commit/Owen-3456/powershell-profile">
+<img src="https://wakatime.com/badge/github/Owen-3456/powershell-profile.svg">
 </div>
 
 This is my PowerShell profile. It's a work in progress. I will slowly add to as I find more useful functions and aliases.
