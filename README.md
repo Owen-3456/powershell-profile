@@ -18,6 +18,12 @@ To install the profile, run the following command in PowerShell:
 irm "owen3456.xyz/pwsh" | iex
 ```
 
+or
+
+```ps1
+irm "https://raw.githubusercontent.com/Owen-3456/powershell-profile/refs/heads/main/Microsoft.PowerShell_profile.ps1" | iex
+```
+
 This will install:
 - [PowerShell 7](https://github.com/PowerShell/PowerShell)
 - [Oh My Posh](https://ohmyposh.dev/)
