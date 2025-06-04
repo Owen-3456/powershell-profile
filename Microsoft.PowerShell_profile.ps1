@@ -251,9 +251,11 @@ function c { Set-Location -Path C:\ }
 oh-my-posh init pwsh --config "$HOME/.config/oh-my-posh/nordcustom.omp.json" | Invoke-Expression
 
 # Set up zoxide
-Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+if (Get-Alias cd -ErrorAction SilentlyContinue) {
+    Remove-Item Alias:cd
+}
+Set-Alias cd z
 
 # Import Terminal-Icons module
 Import-Module -Name Terminal-Icons
-
-Clear-Host
