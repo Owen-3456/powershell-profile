@@ -230,6 +230,82 @@ function Get-Packages {
     winget list | Format-Table -AutoSize
 }
 
+function Invoke-FuzzyDelete {
+    <#
+    .SYNOPSIS
+        Uses fzf to search for files and directories, deletes the selected item after confirmation, and keeps the fzf window open for multiple selections.
+    .DESCRIPTION
+        This function leverages PowerShell's Get-ChildItem to list files and directories, fzf for fuzzy searching. It prompts for confirmation showing the full path before deleting an item and allows continuous selection until the user exits fzf.
+    .EXAMPLE
+        Invoke-FuzzyDelete
+        # Opens fzf to search for files and directories, prompts for deletion confirmation, and keeps the fzf window open for further selections.
+    .NOTES
+        Requires only fzf installed (e.g., via winget or Chocolatey).
+        Ensure fzf is in your PATH.
+    #>
+    [CmdletBinding()]
+    param (
+        [string]$SearchPath = ".",  # Default to current directory
+        [string]$FzfPrompt = "Select item to delete> "
+    )
+
+    # Ensure fzf is installed
+    if (-not (Get-Command fzf -ErrorAction SilentlyContinue)) {
+        Write-Error "fzf is not installed. Please install it using 'winget install junegunn.fzf' or similar."
+        return
+    }
+
+    # Configure fzf options for multi-selection and preview
+    $fzfOptions = @(
+        '--multi'
+        "--prompt=$FzfPrompt"
+        '--preview=if (Test-Path {} -PathType Leaf) { Get-Content {} | Select-Object -First 30 } else { Get-ChildItem {} | Format-Table -AutoSize }'
+        '--preview-window=right,60%,border-left'
+        '--bind=ctrl-r:reload(Get-ChildItem -Path . -Recurse -Force -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName)'
+        '--header-first'
+        '--header=CTRL-R: Refresh | ENTER: Select | ESC: Exit'
+    )
+
+    while ($true) {
+        # Get all files and directories using PowerShell, pipe to fzf for selection
+        $selectedItems = Get-ChildItem -Path $SearchPath -Recurse -Force -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName | & fzf @fzfOptions
+
+        # Exit if no selection (e.g., user presses ESC)
+        if (-not $selectedItems) {
+            Write-Host "No item selected. Exiting."
+            break
+        }
+
+        # Process each selected item (supports multi-selection)
+        foreach ($item in $selectedItems) {
+            # Get the full path of the selected item
+            $fullPath = Resolve-Path $item -ErrorAction SilentlyContinue
+            if (-not $fullPath) {
+                Write-Warning "Could not resolve path for: $item"
+                continue
+            }
+
+            # Prompt for confirmation with full path
+            Write-Host "Selected item: $fullPath"
+            $confirm = Read-Host "Are you sure you want to delete '$fullPath'? (y/n)"
+            if ($confirm -eq 'y' -or $confirm -eq 'Y') {
+                try {
+                    Remove-Item -Path $fullPath -Recurse -Force -ErrorAction Stop
+                    Write-Host "Deleted: $fullPath"
+                }
+                catch {
+                    Write-Error "Failed to delete '$fullPath': $_"
+                }
+            }
+            else {
+                Write-Host "Deletion canceled for: $fullPath"
+            }
+        }
+    }
+}
+
+Set-Alias fzd Invoke-FuzzyDelete
+
 
 # MARK: Location Shortcuts
 
@@ -256,6 +332,9 @@ if (Get-Alias cd -ErrorAction SilentlyContinue) {
     Remove-Item Alias:cd
 }
 Set-Alias cd z
+
+# bat alias
+Set-Alias cat bat
 
 # Import Terminal-Icons module
 Import-Module -Name Terminal-Icons
