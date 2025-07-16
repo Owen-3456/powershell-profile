@@ -245,7 +245,7 @@ function Invoke-FuzzyDelete {
     #>
     [CmdletBinding()]
     param (
-        [string]$SearchPath = ".",  # Default to current directory
+        [string]$SearchPath = ".", # Default to current directory
         [string]$FzfPrompt = "Select item to delete> "
     )
 
@@ -305,6 +305,94 @@ function Invoke-FuzzyDelete {
 }
 
 Set-Alias fzd Invoke-FuzzyDelete
+
+function Update-SelectedPackages {
+    <#
+    .SYNOPSIS
+        Shows available winget updates and allows selective updating of packages.
+    .DESCRIPTION
+        This function lists all available winget updates and uses fzf for multi-selection,
+        then updates only the selected packages.
+    .EXAMPLE
+        Update-SelectedPackages
+    .NOTES
+        Requires winget and fzf to be installed.
+    #>
+    [CmdletBinding()]
+    param()
+
+    # Check if winget is installed
+    if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+        Write-Error "winget is not installed. Please install it from the Microsoft Store or App Installer."
+        return
+    }
+
+    # Check if fzf is installed
+    if (-not (Get-Command fzf -ErrorAction SilentlyContinue)) {
+        Write-Error "fzf is not installed. Please install it using 'winget install fzf'."
+        return
+    }
+
+    try {
+        Write-Host "Checking for updates..." -ForegroundColor Cyan
+        
+        # Get list of available updates
+        $updates = winget upgrade | Out-String -Stream | Select-Object -Skip 2
+        
+        # If no updates available
+        if (-not ($updates -match "^\s*\S+\s+\S+")) {
+            Write-Host "No updates available." -ForegroundColor Green
+            return
+        }
+
+        # Format the updates for selection with fzf
+        $formattedUpdates = $updates | Where-Object { $_ -match "^\s*\S+\s+\S+" -and $_ -notmatch "^-" -and $_ -notmatch "upgrades available" }
+        
+        # Exit if no updates are found after formatting
+        if (-not $formattedUpdates) {
+            Write-Host "No updates available." -ForegroundColor Green
+            return
+        }
+
+        Write-Host "Select packages to update (use TAB to select multiple, ENTER to confirm):" -ForegroundColor Yellow
+        
+        # Use fzf for selection with multi-select enabled
+        $selectedUpdates = $formattedUpdates | fzf --multi --height 50% --border --header="Select packages to update (TAB to select multiple, ENTER to confirm)"
+        
+        if (-not $selectedUpdates) {
+            Write-Host "No packages selected for update." -ForegroundColor Yellow
+            return
+        }
+
+        # Extract package IDs from selected updates
+        $packageIds = @()
+        foreach ($update in $selectedUpdates) {
+            if ($update -match "^\s*(\S+)\s+") {
+                $packageIds += $matches[1]
+            }
+        }
+
+        if ($packageIds.Count -eq 0) {
+            Write-Host "Failed to parse selected packages." -ForegroundColor Red
+            return
+        }
+
+        # Update each selected package
+        Write-Host "Updating selected packages..." -ForegroundColor Cyan
+        foreach ($id in $packageIds) {
+            Write-Host "Updating $id..." -ForegroundColor Cyan
+            winget upgrade $id
+        }
+
+        Write-Host "Update process completed." -ForegroundColor Green
+    }
+    catch {
+        Write-Error "An error occurred: $_"
+    }
+}
+
+# Create alias for Update-SelectedPackages
+Set-Alias wup Update-SelectedPackages
 
 
 # MARK: Location Shortcuts
