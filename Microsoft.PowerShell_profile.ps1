@@ -233,20 +233,22 @@ function Get-Packages {
 function Invoke-FuzzyDelete {
     <#
     .SYNOPSIS
-        Uses fzf to search for files and directories, deletes the selected item after confirmation, and keeps the fzf window open for multiple selections.
+        Uses fzf to search for files and directories, deletes the selected items after confirmation.
     .DESCRIPTION
-        This function leverages PowerShell's Get-ChildItem to list files and directories, fzf for fuzzy searching. It prompts for confirmation showing the full path before deleting an item and allows continuous selection until the user exits fzf.
+        This function leverages PowerShell's Get-ChildItem to list files and directories, fzf for fuzzy searching with multi-selection support. It prompts for confirmation showing all selected items before deleting them.
     .EXAMPLE
         Invoke-FuzzyDelete
-        # Opens fzf to search for files and directories, prompts for deletion confirmation, and keeps the fzf window open for further selections.
+        # Opens fzf to search for files and directories with multi-selection, prompts for deletion confirmation.
     .NOTES
         Requires only fzf installed (e.g., via winget or Chocolatey).
         Ensure fzf is in your PATH.
+        Use TAB to select multiple items, ENTER to confirm selection.
     #>
     [CmdletBinding()]
     param (
-        [string]$SearchPath = ".", # Default to current directory
-        [string]$FzfPrompt = "Select item to delete> "
+        [string]$SearchPath = ".",  # Default to current directory
+        [string]$FzfPrompt = "Select items to delete (TAB for multi-select)> ",
+        [switch]$ConfirmEach  # If specified, confirm each item individually instead of all at once
     )
 
     # Ensure fzf is installed
@@ -263,43 +265,93 @@ function Invoke-FuzzyDelete {
         '--preview-window=right,60%,border-left'
         '--bind=ctrl-r:reload(Get-ChildItem -Path . -Recurse -Force -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName)'
         '--header-first'
-        '--header=CTRL-R: Refresh | ENTER: Select | ESC: Exit'
+        '--header=TAB: Select/Deselect | CTRL-R: Refresh | ENTER: Confirm | ESC: Exit'
     )
 
-    while ($true) {
-        # Get all files and directories using PowerShell, pipe to fzf for selection
-        $selectedItems = Get-ChildItem -Path $SearchPath -Recurse -Force -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName | & fzf @fzfOptions
+    # Get all files and directories using PowerShell, pipe to fzf for selection
+    $selectedItems = Get-ChildItem -Path $SearchPath -Recurse -Force -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName | & fzf @fzfOptions
 
-        # Exit if no selection (e.g., user presses ESC)
-        if (-not $selectedItems) {
-            Write-Host "No item selected. Exiting."
-            break
+    # Exit if no selection (e.g., user presses ESC)
+    if (-not $selectedItems) {
+        Write-Host "No items selected. Exiting." -ForegroundColor Yellow
+        return
+    }
+
+    # Ensure $selectedItems is an array
+    if ($selectedItems -is [string]) {
+        $selectedItems = @($selectedItems)
+    }
+
+    Write-Host "`nSelected $($selectedItems.Count) item(s) for deletion:" -ForegroundColor Cyan
+    foreach ($item in $selectedItems) {
+        $fullPath = Resolve-Path $item -ErrorAction SilentlyContinue
+        if ($fullPath) {
+            Write-Host "  - $fullPath" -ForegroundColor White
+        } else {
+            Write-Host "  - $item (could not resolve path)" -ForegroundColor Red
         }
+    }
 
-        # Process each selected item (supports multi-selection)
+    if ($ConfirmEach) {
+        # Confirm each item individually
         foreach ($item in $selectedItems) {
-            # Get the full path of the selected item
             $fullPath = Resolve-Path $item -ErrorAction SilentlyContinue
             if (-not $fullPath) {
                 Write-Warning "Could not resolve path for: $item"
                 continue
             }
 
-            # Prompt for confirmation with full path
-            Write-Host "Selected item: $fullPath"
+            Write-Host "`nSelected item: $fullPath"
             $confirm = Read-Host "Are you sure you want to delete '$fullPath'? (y/n)"
             if ($confirm -eq 'y' -or $confirm -eq 'Y') {
                 try {
                     Remove-Item -Path $fullPath -Recurse -Force -ErrorAction Stop
-                    Write-Host "Deleted: $fullPath"
+                    Write-Host "Deleted: $fullPath" -ForegroundColor Green
                 }
                 catch {
                     Write-Error "Failed to delete '$fullPath': $_"
                 }
             }
             else {
-                Write-Host "Deletion canceled for: $fullPath"
+                Write-Host "Deletion canceled for: $fullPath" -ForegroundColor Yellow
             }
+        }
+    } else {
+        # Confirm all items at once
+        Write-Host "`nAre you sure you want to delete ALL $($selectedItems.Count) selected item(s)?" -ForegroundColor Red
+        $confirm = Read-Host "(y/n)"
+        
+        if ($confirm -eq 'y' -or $confirm -eq 'Y') {
+            $successCount = 0
+            $failCount = 0
+            
+            foreach ($item in $selectedItems) {
+                $fullPath = Resolve-Path $item -ErrorAction SilentlyContinue
+                if (-not $fullPath) {
+                    Write-Warning "Could not resolve path for: $item"
+                    $failCount++
+                    continue
+                }
+
+                try {
+                    Remove-Item -Path $fullPath -Recurse -Force -ErrorAction Stop
+                    Write-Host "Deleted: $fullPath" -ForegroundColor Green
+                    $successCount++
+                }
+                catch {
+                    Write-Error "Failed to delete '$fullPath': $_"
+                    $failCount++
+                }
+            }
+            
+            Write-Host "`nDeletion Summary:" -ForegroundColor Cyan
+            Write-Host "  Successfully deleted: $successCount items" -ForegroundColor Green
+            if ($failCount -gt 0) {
+                Write-Host "  Failed to delete: $failCount items" -ForegroundColor Red
+            }
+        }
+        else {
+            Write-Host "Deletion canceled for all selected items." -ForegroundColor Yellow
         }
     }
 }
