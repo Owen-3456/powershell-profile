@@ -169,28 +169,6 @@ function flushdns {
     }
 }
 
-# Uses fzf to select a directory and change to it
-function sd {
-    try {
-        # Get a list of directories
-        $directories = Get-ChildItem -Directory -Recurse | Select-Object -ExpandProperty FullName
-
-        # Use fzf to select a directory
-        $selectedDirectory = $directories | fzf --height 100% --reverse --prompt "Select a directory: "
-
-        if ($selectedDirectory) {
-            Set-Location -Path $selectedDirectory
-            Write-Host "Changed directory to $selectedDirectory" -ForegroundColor Green
-        }
-        else {
-            Write-Host "No directory selected." -ForegroundColor Yellow
-        }
-    }
-    catch {
-        Write-Error "Failed to select or change directory. Error: $_"
-    }
-}
-
 # Makes a new directory and navigates to it
 function mkcd {
     param (
