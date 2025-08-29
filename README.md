@@ -6,90 +6,76 @@
 <img src="https://wakatime.com/badge/github/Owen-3456/powershell-profile.svg">
 </div>
 
-This is my PowerShell profile. It's a work in progress. I will slowly add to as I find more useful functions and aliases.
-
-Designed with a Nord theme to match my [Windows Terminal Nord Colour Scheme](https://github.com/Owen-3456/wt-nord)
+A custom PowerShell 7 profile that adds many new features and tweaks existing ones.
 
 ## Installation
 
-To install the profile, run the following command in PowerShell:
+1. To install the profile, run the following command in PowerShell:
 
 ```ps1
 irm "owen3456.xyz/pwsh" | iex
 ```
 
-or
+2. Download and install a Nerd Font from [Nerd Fonts](https://www.nerdfonts.com/) or run the following command after installing the profile, personally I use JetBrains Mono Nerd Font.:
 
 ```ps1
-irm "https://raw.githubusercontent.com/Owen-3456/powershell-profile/refs/heads/main/Microsoft.PowerShell_profile.ps1" | iex
+oh-my-posh font install
 ```
 
-This will install:
-- [PowerShell 7](https://github.com/PowerShell/PowerShell)
-- [Oh My Posh](https://ohmyposh.dev/)
-- [Zioxide](https://github.com/ajeetdsouza/zoxide)
-- [fzf](https://github.com/junegunn/fzf)
-- [Fastfetch](https://github.com/fastfetch-cli/fastfetch)
-- [Gsudo](https://github.com/gerardog/gsudo)
-- [bat](https://github.com/sharkdp/bat)
+3. Set your terminal font to the Nerd Font you installed.
 
-You need to install a [Nerd font](https://www.nerdfonts.com/) to use the profile. Set the font in your terminal.
 
-## Zoxide
+## Features
 
-`cd` function now uses [Zioxide](https://github.com/ajeetdsouza/zoxide). It's a smarter `cd` command that tracks your most used directories
+### Packages and Tools
 
-## Gsudo
+This profile is designed to be used with [PowerShell 7](https://github.com/PowerShell/PowerShell). It will automatically install PowerShell 7 alongside:
 
-[Gsudo](https://github.com/gerardog/gsudo) is a sudo alternative for Windows. It allows you to run commands as an administrator with `gsduo` or `sudo`
+- [Oh My Posh](https://ohmyposh.dev/) - A prompt theme engine for any shell.
+- [Zioxide](https://github.com/ajeetdsouza/zoxide) - A smarter `cd` command that tracks your most used directories.
+- [fzf](https://github.com/junegunn/fzf) - A command-line fuzzy finder.
+- [Fastfetch](https://github.com/fastfetch-cli/fastfetch) - A fast and highly customizable system information tool.
+- [Gsudo](https://github.com/gerardog/gsudo) - A sudo alternative for Windows.
+- [bat](https://github.com/sharkdp/bat) - A cat clone with syntax highlighting and Git integration.
+- [Terminal-Icons](https://github.com/devblackops/Terminal-Icons) - Adds icons to your terminal.
 
-## Modules
+A custom Nord style Oh My Posh theme is also included.
 
-- [Terminal-Icons](https://github.com/devblackops/Terminal-Icons)
+The profile fixes the Clear-History command, which is broken by default.
 
-## New Functions
+### Custom Functions and Aliases
 
-Note: Some functions missing from the list
-
-`Update-PowerShell` - Updates PowerShell to the latest version. Is ran on startup.
+The profile also adds many new commands, which are listed below:
 
 `Update-Profile` - Updates profile from GitHub and all dependencies.
 
-`Reload-Profile` - Reloads the profile.
-
 `hb [relative file path]` - Uploads the file to a hastebin server and returns the URL.
 
-`ip` - Makes a curl request to https://api.ipify.org and returns your public IP address.
-
-`admin` - Opens a new PowerShell window as an administrator.
-
-`Edit-Profile` - Opens the profile in Visual Studio Code.
+`ip` or `Get-IP` - Makes a curl request to https://api.ipify.org and returns your public IP address.
 
 `ll` - Lists contents of directory excluding other directories.
 
-`find-file [file name]` or `ff [file name]` - Searches for a file in the current directory and all subdirectories.
-
-`unzip` - Unzips a file into the current directory.
+`ff [file name]` or `find-file [filename]` - Searches for a file in the current directory and all subdirectories.
 
 `pkill [process]` - Kills any process with the name.
 
 `uptime` - Returns the uptime of the computer.
 
-`reload` - Reloads the profile.
-
-`winutil` - Opens [Windows Utility](https://github.com/ChrisTitusTech/winutil).
+`winutil` - Opens [Windows Utility](https://github.com/ChrisTitusTech/winutil). `wintuilDev` opens the developer branch.
 
 `mas` - Runs [Microsoft Activation Script](https://github.com/massgravel/Microsoft-Activation-Scripts).
 
 `flushdns` - Flushes the DNS cache.
 
-`sd` - Runs a fuzzy find and changes to the selected directory.
+`mkcd [directory name]` - Creates a directory and changes to it.
 
-## Tweaked Functions
+`Get-Packages` - Lists all installed packages from winget.
 
-`Clear-History` - The default `Clear-History` command doesn't work. It get overwritten with a command that does work.
+`fzd` or `Invoke-FuzzyDelete` - Runs a fuzzy find and deletes the selected file or directory.
 
-## Location Shortcuts
+`wup` or `Update-SelectedPackages` - Runs winget upgrade and allows you to select which packages to upgrade.
+
+### Location Shortcuts
 
 `doc` - Opens the Documents folder.
 
