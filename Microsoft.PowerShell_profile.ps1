@@ -113,22 +113,6 @@ function Get-IP {
 
 Set-Alias ip Get-IP
 
-# Opens a new PowerShell window as an administrator
-function admin {
-    if ($args.Count -gt 0) {
-        $argList = "& '$args'"
-        Start-Process wt -Verb runAs -ArgumentList "pwsh.exe -NoExit -Command $argList"
-    }
-    else {
-        Start-Process wt -Verb runAs
-    }
-}
-
-# Opens the PowerShell profile in VSCode
-function Edit-Profile {
-    code $PROFILE
-    # Change code to your editor of choice (e.g. notepad $PROFILE) 
-}
 
 # Lists all files in the current directory (not subdirectories)
 function ll { Get-ChildItem -Path $pwd -File }
