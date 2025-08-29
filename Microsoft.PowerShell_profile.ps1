@@ -144,13 +144,6 @@ function find-file($name) {
 # Set up aliases for find-file
 Set-Alias ff find-file
 
-# Unzips a file to the current directory
-function unzip ($file) {
-    Write-Output("Extracting", $file, "to", $pwd)
-    $fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object { $_.FullName }
-    Expand-Archive -Path $fullFile -DestinationPath $pwd
-}
-
 # Kills any process containing the name given
 function pkill($name) {
     Get-Process $name -ErrorAction SilentlyContinue | Stop-Process
