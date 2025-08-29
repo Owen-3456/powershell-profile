@@ -179,7 +179,8 @@ function Invoke-FuzzyDelete {
         $fullPath = Resolve-Path $item -ErrorAction SilentlyContinue
         if ($fullPath) {
             Write-Host "  - $fullPath" -ForegroundColor White
-        } else {
+        }
+        else {
             Write-Host "  - $item (could not resolve path)" -ForegroundColor Red
         }
     }
@@ -208,7 +209,8 @@ function Invoke-FuzzyDelete {
                 Write-Host "Deletion canceled for: $fullPath" -ForegroundColor Yellow
             }
         }
-    } else {
+    }
+    else {
         # Confirm all items at once
         Write-Host "`nAre you sure you want to delete ALL $($selectedItems.Count) selected item(s)?" -ForegroundColor Red
         $confirm = Read-Host "(y/n)"
@@ -355,18 +357,26 @@ function c { Set-Location -Path C:\ }
 
 # MARK: Other
 
-# Set the prompt to use oh-my-posh
-oh-my-posh init pwsh --config "$HOME/.config/oh-my-posh/nordcustom.omp.json" | Invoke-Expression
-
-# Set up zoxide
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
-if (Get-Alias cd -ErrorAction SilentlyContinue) {
-    Remove-Item Alias:cd
+# Set the prompt to use oh-my-posh only if available
+if (Get-Command oh-my-posh -ErrorAction SilentlyContinue) {
+    oh-my-posh init pwsh --config "$HOME/.config/oh-my-posh/nordcustom.omp.json" | Invoke-Expression
 }
-Set-Alias cd z
 
-# bat alias
-Set-Alias cat bat
+# Set up zoxide only if available
+if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+    Invoke-Expression (& { (zoxide init powershell | Out-String) })
+    if (Get-Alias cd -ErrorAction SilentlyContinue) {
+        Remove-Item Alias:cd
+    }
+    Set-Alias cd z
+}
 
-# Import Terminal-Icons module
-Import-Module -Name Terminal-Icons
+# bat alias only if available
+if (Get-Command bat -ErrorAction SilentlyContinue) {
+    Set-Alias cat bat
+}
+
+# Import Terminal-Icons module only if available
+if (Get-Module -ListAvailable -Name Terminal-Icons) {
+    Import-Module -Name Terminal-Icons
+}
