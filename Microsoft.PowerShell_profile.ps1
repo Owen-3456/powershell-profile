@@ -88,7 +88,7 @@ function winutilDev {
 
 # Runs the Microsoft Activation Script for activating Windows and Office 365
 function mas {
-    Start-Process powershell.exe -verb runas -ArgumentList 'irm https://massgrave.dev/get | iex'
+    Start-Process powershell.exe -verb runas -ArgumentList 'irm https://get.activated.win | iex'
 }
 
 # Overwrite the default broken Clear-History function with one that works
