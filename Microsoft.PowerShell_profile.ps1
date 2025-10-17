@@ -340,21 +340,6 @@ function Update-SelectedPackages {
 # Create alias for Update-SelectedPackages
 Set-Alias wup Update-SelectedPackages
 
-
-# MARK: Location Shortcuts
-
-# Shortcut to Documents folder
-function doc { Set-Location -Path $HOME\Documents }
-
-# Shortcut to Downloads folder
-function dl { Set-Location -Path $HOME\Downloads }
-
-# Shortcut to GitHub folder
-function gh { Set-Location -Path $HOME\Documents\GitHub }
-
-# Shortcut to C: drive
-function c { Set-Location -Path C:\ }
-
 # MARK: Other
 
 # Set the prompt to starship
