@@ -29,7 +29,8 @@ try {
     $downloads = @(
         @{Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/Microsoft.PowerShell_profile.ps1"; Path = "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1" },
         @{Url = "https://raw.githubusercontent.com/Owen-3456/dotfiles/refs/heads/main/starship/.config/starship.toml"; Path = "$HOME\.config\starship.toml" },
-        @{Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/config.jsonc"; Path = "$HOME\.config\fastfetch\config.jsonc" }
+        @{Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/config.jsonc"; Path = "$HOME\.config\fastfetch\config.jsonc" },
+        @{Url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"; Path = "$HOME\Downloads\nerd-font-temp\JetBrainsMono.zip" }
     )
     # Inform user about config downloads
     Write-Host "`nDownloading configuration files:" -ForegroundColor Cyan
@@ -85,8 +86,12 @@ try {
 
     Set-PowerShell7Default -action "PS7"
 
-    # Install nerd font (last, not blocking)
-    Start-Job -ScriptBlock { oh-my-posh font install } | Out-Null
+    # Install nerd font
+    $nerdFontZip = "$HOME\Downloads\nerd-font-temp\JetBrainsMono.zip"
+    $nerdFontDest = "$HOME\AppData\Local\Microsoft\Windows\Fonts"
+    Expand-Archive -Path $nerdFontZip -DestinationPath $nerdFontDest -Force
+    Remove-Item -Path "$HOME\Downloads\nerd-font-temp" -Recurse -Force
+    Write-Host "Nerd Font installed to $nerdFontDest" -ForegroundColor Green
 
     # Output completion message
     Write-Host ""
