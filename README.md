@@ -16,9 +16,7 @@ A custom PowerShell 7 profile that adds many new features and tweaks existing on
 irm "owen3456.xyz/pwsh" | iex
 ```
 
-2. Download and install a Nerd Font from [Nerd Fonts](https://www.nerdfonts.com/)
-
-3. Set your terminal font to the Nerd Font you installed.
+2. Set your terminal font to JetBrainsMono Nerd Font.
 
 ## Features
 
@@ -38,44 +36,44 @@ A custom Nord style Oh My Posh theme is also included.
 
 The profile fixes the Clear-History command, which is broken by default.
 
-### Custom Functions and Aliases
+### Custom Functions
 
 The profile also adds many new commands, which are listed below:
 
 `Update-Profile` - Updates profile from GitHub and all dependencies.
 
-`hb [relative file path]` - Uploads the file to a hastebin server and returns the URL.
+`hb [path]` - Uploads the file to a hastebin server and returns the URL.
 
-`ip` or `Get-IP` - Makes a curl request to https://api.ipify.org and returns your public IP address.
+`ip` - Retrieves and displays both your private and public IP addresses.
 
 `ll` - Lists contents of directory excluding other directories.
 
-`ff [file name]` or `find-file [filename]` - Searches for a file in the current directory and all subdirectories.
+`ff [name]` - Searches for a file in the current directory and all subdirectories.
 
-`pkill [process]` - Kills any process with the name.
+`pkill [process]` - Kills any process with the specified name.
 
 `uptime` - Returns the uptime of the computer.
 
-`winutil` - Opens [Windows Utility](https://github.com/ChrisTitusTech/winutil). `wintuilDev` opens the developer branch.
+`winutil` - Opens [Windows Utility](https://github.com/ChrisTitusTech/winutil).
+
+`winutilDev` - Opens the development version of Windows Utility.
 
 `mas` - Runs [Microsoft Activation Script](https://github.com/massgravel/Microsoft-Activation-Scripts).
 
+`Clear-History` - Properly clears PowerShell command history (fixes the broken default implementation).
+
 `flushdns` - Flushes the DNS cache.
 
-`mkcd [directory name]` - Creates a directory and changes to it.
+`mkcd [path]` - Creates a directory and changes to it.
 
 `Get-Packages` - Lists all installed packages from winget.
 
-`fzd` or `Invoke-FuzzyDelete` - Runs a fuzzy find and deletes the selected file or directory.
+`fzd` - Uses fzf to search for files and directories with multi-selection support, then deletes selected items after confirmation.
 
-`wup` or `Update-SelectedPackages` - Runs winget upgrade and allows you to select which packages to upgrade.
+`wup` - Shows available winget updates and allows selective updating of packages using fzf.
 
-### Location Shortcuts
+### Custom Aliases
 
-`doc` - Opens the Documents folder.
+`cd` - Alias for `z` (zoxide smart directory navigation).
 
-`dl` - Opens the Downloads folder.
-
-`gh` - Opens the GitHub folder (...\Documents\GitHub).
-
-`c` - Opens the C: drive.
+`cat` - Alias for `bat` (enhanced cat with syntax highlighting).
