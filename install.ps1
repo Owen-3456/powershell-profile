@@ -20,7 +20,7 @@ try {
     }
 
     # Ensure config directories exist
-    $dirs = @("$HOME\Documents\PowerShell", "$HOME\.config\oh-my-posh", "$HOME\.config\fastfetch")
+    $dirs = @("$HOME\Documents\PowerShell", "$HOME\.config\oh-my-posh", "$HOME\.config\fastfetch", "$HOME\Downloads\nerd-font-temp")
     foreach ($dir in $dirs) {
         if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
     }
