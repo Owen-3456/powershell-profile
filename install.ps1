@@ -28,7 +28,7 @@ try {
     # Download files in parallel
     $downloads = @(
         @{Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/Microsoft.PowerShell_profile.ps1"; Path = "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1" },
-        @{Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/nordcustom.omp.json"; Path = "$HOME\.config\oh-my-posh\nordcustom.omp.json" },
+        @{Url = "https://raw.githubusercontent.com/Owen-3456/dotfiles/refs/heads/main/starship/.config/starship.toml"; Path = "$HOME\.config\starship.toml" },
         @{Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/config.jsonc"; Path = "$HOME\.config\fastfetch\config.jsonc" }
     )
     # Inform user about config downloads

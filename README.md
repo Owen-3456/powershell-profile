@@ -31,7 +31,7 @@ oh-my-posh font install
 
 This profile is designed to be used with [PowerShell 7](https://github.com/PowerShell/PowerShell). It will automatically install PowerShell 7 alongside:
 
-- [Oh My Posh](https://ohmyposh.dev/) - A prompt theme engine for any shell.
+- [Starsihip](https://starship.rs/) - A cross-shell prompt.
 - [Zioxide](https://github.com/ajeetdsouza/zoxide) - A smarter `cd` command that tracks your most used directories.
 - [fzf](https://github.com/junegunn/fzf) - A command-line fuzzy finder.
 - [Fastfetch](https://github.com/fastfetch-cli/fastfetch) - A fast and highly customizable system information tool.
