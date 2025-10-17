@@ -16,14 +16,9 @@ A custom PowerShell 7 profile that adds many new features and tweaks existing on
 irm "owen3456.xyz/pwsh" | iex
 ```
 
-2. Download and install a Nerd Font from [Nerd Fonts](https://www.nerdfonts.com/) or run the following command after installing the profile, personally I use JetBrains Mono Nerd Font.:
-
-```ps1
-oh-my-posh font install
-```
+2. Download and install a Nerd Font from [Nerd Fonts](https://www.nerdfonts.com/)
 
 3. Set your terminal font to the Nerd Font you installed.
-
 
 ## Features
 
