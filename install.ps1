@@ -1,7 +1,7 @@
 
 Write-Host "Loading Owen3456's Profile" -ForegroundColor Cyan
 try {
-    # Install required programs in parallel
+    # Check and install/update required programs
     $wingetPkgs = @(
         "Microsoft.PowerShell",
         "JanDeDobbeleer.OhMyPosh",
@@ -11,12 +11,23 @@ try {
         "gerardog.gsudo",
         "sharkdp.bat"
     )
-    # Inform user what is being installed
-    Write-Host "Installing the following packages via winget:" -ForegroundColor Cyan
-    foreach ($pkg in $wingetPkgs) { Write-Host "  - $pkg" -ForegroundColor White }
+    
+    Write-Host "Checking winget packages..." -ForegroundColor Cyan
     $wingetJobs = @()
     foreach ($pkg in $wingetPkgs) {
-        $wingetJobs += Start-Job -ScriptBlock { param($p) winget install $p --silent } -ArgumentList $pkg
+        $wingetJobs += Start-Job -ScriptBlock { 
+            param($p)
+            # Check if package is installed
+            $installed = winget list --id $p --exact 2>$null
+            if ($LASTEXITCODE -eq 0 -and $installed -match $p) {
+                Write-Output "Updating $p..."
+                winget upgrade $p --silent --accept-source-agreements --accept-package-agreements
+            }
+            else {
+                Write-Output "Installing $p..."
+                winget install $p --silent --accept-source-agreements --accept-package-agreements
+            }
+        } -ArgumentList $pkg
     }
 
     # Ensure config directories exist
@@ -86,12 +97,29 @@ try {
 
     Set-PowerShell7Default -action "PS7"
 
-    # Install nerd font
+    # Install nerd font (only if not already installed)
     $nerdFontZip = "$HOME\Downloads\nerd-font-temp\JetBrainsMono.zip"
     $nerdFontDest = "$HOME\AppData\Local\Microsoft\Windows\Fonts"
-    Expand-Archive -Path $nerdFontZip -DestinationPath $nerdFontDest -Force
-    Remove-Item -Path "$HOME\Downloads\nerd-font-temp" -Recurse -Force
-    Write-Host "Nerd Font installed to $nerdFontDest" -ForegroundColor Green
+    $nerdFontCheck = "$nerdFontDest\JetBrainsMonoNerdFont-Regular.ttf"
+    
+    if (Test-Path $nerdFontCheck) {
+        Write-Host "JetBrainsMono Nerd Font is already installed, skipping..." -ForegroundColor Yellow
+    }
+    else {
+        Write-Host "Installing JetBrainsMono Nerd Font..." -ForegroundColor Cyan
+        Expand-Archive -Path $nerdFontZip -DestinationPath $nerdFontDest -Force
+        Write-Host "Nerd Font installed to $nerdFontDest" -ForegroundColor Green
+    }
+    
+    # Clean up temp directory (with error handling for locked files)
+    if (Test-Path "$HOME\Downloads\nerd-font-temp") {
+        try {
+            Remove-Item -Path "$HOME\Downloads\nerd-font-temp" -Recurse -Force -ErrorAction Stop
+        }
+        catch {
+            Write-Host "Note: Could not remove temporary font folder (files may be in use). You can safely delete it manually later." -ForegroundColor Yellow
+        }
+    }
 
     # Output completion message
     Write-Host ""
