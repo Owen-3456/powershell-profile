@@ -40,7 +40,7 @@ try {
     $downloads = @(
         @{Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/Microsoft.PowerShell_profile.ps1"; Path = "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1" },
         @{Url = "https://raw.githubusercontent.com/Owen-3456/dotfiles/refs/heads/main/starship/.config/starship.toml"; Path = "$HOME\.config\starship.toml" },
-        @{Url = "https://raw.githubusercontent.com/Owen-3456/powershell-profile/main/config.jsonc"; Path = "$HOME\.config\fastfetch\config.jsonc" },
+        @{Url = "https://raw.githubusercontent.com/Owen-3456/dotfiles/refs/heads/main/fastfetch/.config/fastfetch/config.jsonc"; Path = "$HOME\.config\fastfetch\config.jsonc" },
         @{Url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"; Path = "$HOME\Downloads\nerd-font-temp\JetBrainsMono.zip" }
     )
     # Inform user about config downloads
